@@ -16,6 +16,11 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
+    run_test_arm()
+
+def run_test_arm():
+    robot=rosebot.RoseBot()
+    robot.arm_and_claw.raise_arm()
 
 
 # -----------------------------------------------------------------------------
