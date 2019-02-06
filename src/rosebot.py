@@ -6,7 +6,7 @@
     -- Lower-level code to interact with the EV3 robot library.
 
   Author:  Your professors (for the framework and lower-level code)
-    and Zachary Juday, Grant Stewart, Marcus Hughes-Oliver.
+    and Zachary Juday, Grant Stewart, Marcus Hughes-Oliver
   Winter term, 2018-2019.
 """
 
