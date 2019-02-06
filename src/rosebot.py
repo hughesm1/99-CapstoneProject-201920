@@ -207,6 +207,17 @@ class ArmAndClaw(object):
                (i.e., 14.2 motor revolutions),
           3. Resets the motor's position to 0.
         """
+        self.raise_arm()
+
+        zero_mark = 360*14.2
+        self.motor.reset_position()
+        self.motor.turn_on(-100)
+        while True:
+            if abs(self.motor.get_position()) >= zero_mark:
+                self.motor.turn_off()
+                self.motor.reset_position()
+                break
+
 
     def move_arm_to_position(self, desired_arm_position):
         """
