@@ -204,7 +204,8 @@ def handle_stop(mqtt_sender):
     Tells the robot to stop.
       :type  mqtt_sender:  com.MqttClient
     """
-
+    print('stop')
+    mqtt_sender.send_message('stop')
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
