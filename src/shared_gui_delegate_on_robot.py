@@ -23,6 +23,18 @@ class Handler(object):
         print('got backward', left_wheel_speed, right_wheel_speed)
         self.robot.drive_system.go(int(left_wheel_speed * -1), int(right_wheel_speed * -1))
 
+    def left(self, left_wheel_speed, right_wheel_speed):
+        print('got left', left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go(int(left_wheel_speed * -1), int(right_wheel_speed))
+
+    def right(self, left_wheel_speed, right_wheel_speed):
+        print('got right', left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed * -1))
+
     def stop(self):
         print('stop')
         self.robot.drive_system.stop()
+
+    def raise_arm(self):
+        print('raise arm')
+        self.robot.arm_and_claw()
