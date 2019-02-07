@@ -250,7 +250,7 @@ class ArmAndClaw(object):
             if amount_away_from_zero <= 0:
                 self.motor.turn_off()
                 break
- 
+
 
 
 ###############################################################################
