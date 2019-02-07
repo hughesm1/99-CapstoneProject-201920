@@ -218,7 +218,6 @@ class ArmAndClaw(object):
                 self.motor.reset_position()
                 break
 
-
     def move_arm_to_position(self, desired_arm_position):
         """
         Move its Arm to the given position, where 0 means all the way DOWN.
