@@ -340,7 +340,7 @@ class SoundSystem(object):
         stopping when the touch sensor is pressed.
         """
         count = 1
-        while TouchSensor.is_pressed() == False:
+        while TouchSensor.is_pressed == False:
             ToneMaker.tone(self.tone_maker, count, 4)
             count = count + 1
 
