@@ -37,4 +37,25 @@ class Handler(object):
 
     def raise_arm(self):
         print('raise arm')
-        self.robot.arm_and_claw()
+        self.robot.arm_and_claw.raise_arm()
+
+    def lower_arm(self):
+        print('lower arm')
+        self.robot.arm_and_claw.lower_arm()
+
+    def calibrate_arm(self):
+        print('calibrate arm')
+        self.robot.arm_and_claw.calibrate_arm()
+
+    def move_arm_to_position(self, arm_position):
+        print('move arm to position')
+        self.robot.arm_and_claw.move_arm_to_position(int(arm_position))
+
+    def quit(self):
+        print('quit')
+        self.quit()
+
+    def exit(self):
+        print('exit')
+        self.quit()
+        self.exit()
