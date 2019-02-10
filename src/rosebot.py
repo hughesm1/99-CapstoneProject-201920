@@ -114,7 +114,6 @@ class DriveSystem(object):
         while inches >= (self.wheel_circumference/360)*(Motor.get_position(self.left_motor)):
             self.go(speed,speed)
         self.stop()
-        
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
