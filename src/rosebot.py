@@ -479,24 +479,30 @@ class Beeper(object):
     def __init__(self):
         self._beeper = ev3.Sound
 
-    def beep(self):
+    def beep(self,n):
         # DCM: Indicate that this is NON-blocking.
         # DCM: Indicate that returns a subprocess.Popen, which has a WAIT method
-        return self._beeper.beep()
+        for j in range(n):
+            print('I need to beep')
+
 
 
 class ToneMaker(object):
     def __init__(self):
-        self._tone_maker = ev3.Sound
+        self.tone_maker = ev3.Sound
 
     def tone(self, frequency, duration):
         # DCM: Indicate that this is NON-blocking.
         # DCM: Indicate that returns a subprocess.Popen, which has a WAIT method
-        return self._tone_maker.tone(frequency, duration)  # MHz, msec  DCM XXX CTO
-
+        #return self._tone_maker.tone(frequency, duration)  # MHz, msec  DCM XXX CTO
+        print("I need to make a Tone with frequency "+str(frequency)+' for this long '+str(duration))
 
 class SpeechMaker(object):
-    pass
+    def __init__(self):
+        self.speech_maker = ev3.Sound
+
+    def speak(self, what_to_say):
+        print('I need to say this: '+what_to_say)
 
 
 class SongMaker(object):
