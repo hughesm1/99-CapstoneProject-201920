@@ -65,13 +65,13 @@ class Handler(object):
         print('got go straight for seconds')
         self.go_straight_for_seconds()
 
-    def go_straight_for_inches_using_time(self, time):
+    def go_straight_for_inches_using_time(self, time, speed):
         print('got go straight for inches using time')
-        self.go_straight_for_inches_using_time(time)
+        self.go_straight_for_inches_using_time(time, speed)
 
-    def go_straight_for_inches_using_encoder(self, encoder):
+    def go_straight_for_inches_using_encoder(self, encoder, speed):
         print('got go straight for inches using encoder')
-        self.go_straight_for_inches_using_encoder(encoder)
+        self.go_straight_for_inches_using_encoder(encoder, speed)
 
     def beep(self, n):
         print('got beep')
