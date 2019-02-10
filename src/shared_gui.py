@@ -146,6 +146,65 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+def get_drivey_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame has
+    Button objects to exit this program and/or the robot's program (via MQTT).
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Drive Stuff")
+    go_straight_for_seconds_button = ttk.Button(frame, text="Go straight for seconds")
+    go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for seconds using time")
+    go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for seconds using encoder')
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    go_straight_for_seconds_button.grid(row=1, column=1)
+    go_straight_for_seconds_using_time_button.grid(row=2, column=1)
+    go_straight_for_seconds_using_encoder_button.grid(row=3, column=1)
+
+    # Set the Button callbacks:
+    go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(mqtt_sender)
+    go_straight_for_seconds_using_time_button["command"] = lambda: handle_straight_seconds_time(mqtt_sender)
+    go_straight_for_seconds_using_encoder_button["command"] = lambda: handle_straight_for_inches_encoder(mqtt_sender)
+
+    return frame
+
+def get_sound_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame has
+    Button objects to exit this program and/or the robot's program (via MQTT).
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sound Stuff")
+    beep_button = ttk.Button(frame, text="Beep")
+    tone_button = ttk.Button(frame, text="Tone")
+    speak_button = ttk.Button(frame, text="Speak")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    beep_button.grid(row=1, column=0)
+    tone_button.grid(row=1, column=1)
+    speak_button.grid(row=1, column=2)
+
+    # Set the Button callbacks:
+    beep_button["command"] = lambda: handle_beep(mqtt_sender)
+    tone_button["command"] = lambda: handle_tone(mqtt_sender)
+    speak_button["command"] = lambda: handle_speak(mqtt_sender)
+
+    return frame
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -277,3 +336,28 @@ def handle_exit(mqtt_sender):
     """
     print('exit')
     mqtt_sender.send_message('exit')
+
+def handle_straight_seconds(mqtt_sender):
+    print('go straight for seconds')
+    mqtt_sender.send_message('go_straight_for_seconds')
+
+def handle_straight_seconds_time(mqtt_sender):
+    print('go straight for inches using time')
+    mqtt_sender.send_message('go_straight_for_inches_using_time')
+
+def handle_straight_for_inches_encoder(mqtt_sender):
+    print('go straight for inches using encoder')
+    mqtt_sender.send_message('go_straight_for_inches_using_encoder')
+
+def handle_beep(mqtt_sender):
+    print('beep')
+    mqtt_sender.send_message('beep')
+
+def handle_tone(mqtt_sender):
+    print('tone')
+    mqtt_sender.send_message('tone')
+
+def handle_speak(mqtt_sender):
+    print('speak')
+    mqtt_sender.send_message('speak')
+

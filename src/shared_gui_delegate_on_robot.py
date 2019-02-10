@@ -60,3 +60,27 @@ class Handler(object):
         print('got exit')
         self.quit()
         self.exit()
+
+    def go_straight_for_seconds(self):
+        print('got go straight for seconds')
+        self.go_straight_for_seconds()
+
+    def go_straight_for_inches_using_time(self):
+        print('got go straight for inches using time')
+        self.go_straight_for_inches_using_time()
+
+    def go_straight_for_inches_using_encoder(self):
+        print('got go straight for inches using encoder')
+        self.go_straight_for_inches_using_encoder()
+
+    def beep(self, n):
+        print('got beep')
+        self.beep(n)
+
+    def tone(self, freq, dur):
+        print('got tone')
+        self.tone(freq, dur)
+
+    def speak(self, string):
+        print('got speak')
+        self.speak(string)
