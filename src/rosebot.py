@@ -111,11 +111,10 @@ class DriveSystem(object):
         using the encoder (degrees traveled sensor) built into the motors.
         """
         Motor.reset_position(self.left_motor)
-        pos = Motor.get_position(self.left_motor)
-        while inches <= pos:
-            self.left_motor.turn_on(speed)
-            self.right_motor.turn_on(speed)
+        while inches >= (self.wheel_circumference/360)*(Motor.get_position(self.left_motor)):
+            self.go(speed,speed)
         self.stop()
+        
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
