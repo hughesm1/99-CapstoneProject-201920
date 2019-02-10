@@ -98,11 +98,13 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
-        while inches >= (time.clock()*10):
-            self.left_motor.turn_on(speed)
-            self.right_motor.turn_on(speed)
+
+        sec = ((1/10)*speed)/inches
+        self.go(speed, speed)
+        time.sleep(sec)
         self.stop()
 
+        
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
