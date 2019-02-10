@@ -223,7 +223,7 @@ def handle_raise_arm(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print('raise arm')
-    mqtt_sender.send_message('raise arm')
+    mqtt_sender.send_message('raise_arm')
 
 
 def handle_lower_arm(mqtt_sender):
@@ -232,7 +232,7 @@ def handle_lower_arm(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print('lower arm')
-    mqtt_sender.send_message('lower arm')
+    mqtt_sender.send_message('lower_arm')
 
 
 def handle_calibrate_arm(mqtt_sender):
@@ -243,7 +243,7 @@ def handle_calibrate_arm(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print('calibrate arm')
-    mqtt_sender.send_message('calibrate arm')
+    mqtt_sender.send_message('calibrate_arm')
 
 
 def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
@@ -254,7 +254,7 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
       :type  mqtt_sender:        com.MqttClient
     """
     print('move arm to position', arm_position_entry.get())
-    mqtt_sender.send_message('move arm to position', [arm_position_entry.get()])
+    mqtt_sender.send_message('move_arm_to_position', [arm_position_entry.get()])
 
 
 ###############################################################################
