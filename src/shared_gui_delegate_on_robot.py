@@ -61,9 +61,9 @@ class Handler(object):
         self.quit()
         self.exit()
 
-    def go_straight_for_seconds(self):
+    def go_straight_for_seconds(self, sec):
         print('got go straight for seconds')
-        self.go_straight_for_seconds()
+        self.go_straight_for_seconds(int(sec))
 
     def go_straight_for_inches_using_time(self, time, speed):
         print('got go straight for inches using time')

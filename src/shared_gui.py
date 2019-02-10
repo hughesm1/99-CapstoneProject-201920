@@ -168,6 +168,8 @@ def get_drivey_frame(window, mqtt_sender):
     speedy_entry = ttk.Entry(frame, width=8)
     encoder_entry = ttk.Entry(frame, width=8)
 
+    yup_entry = ttk.Entry(frame, width=8)
+
 
 
     # Grid the widgets:
@@ -179,9 +181,10 @@ def get_drivey_frame(window, mqtt_sender):
     speed_entry.grid(row=2, column=1)
     encoder_entry.grid(row=3, column=0)
     speedy_entry.grid(row=3, column=1)
+    yup_entry.grid(row=1, column=0)
 
     # Set the Button callbacks:
-    go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(mqtt_sender)
+    go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(yup_entry, mqtt_sender)
     go_straight_for_seconds_using_time_button["command"] =\
         lambda: handle_straight_seconds_time(time_entry, speed_entry, mqtt_sender)
     go_straight_for_seconds_using_encoder_button["command"] = \
@@ -350,9 +353,9 @@ def handle_exit(mqtt_sender):
     print('exit')
     mqtt_sender.send_message('exit')
 
-def handle_straight_seconds(mqtt_sender):
+def handle_straight_seconds(sec, mqtt_sender):
     print('go straight for seconds')
-    mqtt_sender.send_message('go_straight_for_seconds')
+    mqtt_sender.send_message('go_straight_for_seconds', [sec.get()])
 
 def handle_straight_seconds_time(time, speed,  mqtt_sender):
     print('go straight for inches using time')
