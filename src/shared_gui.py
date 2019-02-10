@@ -178,7 +178,7 @@ def get_drivey_frame(window, mqtt_sender):
     time_entry.grid(row=2, column=0)
     speed_entry.grid(row=2, column=1)
     encoder_entry.grid(row=3, column=0)
-    speed_entry.grid(row=3, column=1)
+    speedy_entry.grid(row=3, column=1)
 
     # Set the Button callbacks:
     go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(mqtt_sender)
