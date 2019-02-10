@@ -22,7 +22,15 @@ def main():
     #run_test_move_arm_to_position()
     #run_test_lower_arm()
 
-    real_thing()
+    run_test_go()
+    run_test_stop()
+    run_test_go_straight_for_seconds()
+    run_test_stop()
+    run_test_go_straight_for_inches_using_time()
+    run_test_stop()
+    run_test_go_straight_for_inches_using_encoder()
+
+    #real_thing()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
@@ -39,6 +47,27 @@ def run_test_move_arm_to_position():
 def run_test_lower_arm():
     robot=rosebot.RoseBot()
     robot.arm_and_claw.lower_arm()
+
+def run_test_go():
+    robot=rosebot.RoseBot()
+    robot.drive_system.go(100,100)
+
+def run_test_go_straight_for_seconds():
+    robot=rosebot.RoseBot()
+    robot.drive_system.go_straight_for_seconds(10, 100)
+
+def run_test_stop():
+    robot=rosebot.RoseBot()
+    time.sleep(3)
+    robot.drive_system.stop()
+
+def run_test_go_straight_for_inches_using_time():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_for_inches_using_time(10, 100)
+
+def run_test_go_straight_for_inches_using_encoder():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_for_inches_using_encoder(10,50)
 
 def real_thing():
     robot=rosebot.RoseBot()
