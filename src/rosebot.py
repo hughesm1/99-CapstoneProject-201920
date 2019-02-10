@@ -98,6 +98,7 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        
         sec = ((1/10)*speed)/inches
         self.go(speed,speed)
         time.sleep(sec)
