@@ -100,7 +100,7 @@ class DriveSystem(object):
         """
         sec = ((1/10)*speed)/inches
         self.go(speed,speed)
-        time.sleep(sec)
+        time.sleep(1/sec)
         self.stop()
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
@@ -109,6 +109,7 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        Motor.reset_position(self.left_motor)
         pos = Motor.get_position(self.left_motor)
         while inches <= pos:
             self.left_motor.turn_on(speed)
