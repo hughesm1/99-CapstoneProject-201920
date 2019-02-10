@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 
+
 class Handler(object):
     def __init__(self, robot):
         """

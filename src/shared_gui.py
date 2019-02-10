@@ -153,6 +153,7 @@ def get_control_frame(window, mqtt_sender):
 ###############################################################################
 ###############################################################################
 
+
 ###############################################################################
 # Handlers for Buttons in the Teleoperation frame.
 ###############################################################################
@@ -179,6 +180,7 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     print('backward', left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message('backward', [left_entry_box.get(), right_entry_box.get()])
 
+
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -189,6 +191,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
     print('left', left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message('left', [left_entry_box.get(), right_entry_box.get()])
+
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -209,6 +212,7 @@ def handle_stop(mqtt_sender):
     """
     print('stop')
     mqtt_sender.send_message('stop')
+
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
@@ -263,6 +267,7 @@ def handle_quit(mqtt_sender):
     """
     print('quit')
     mqtt_sender.send_message('quit')
+
 
 def handle_exit(mqtt_sender):
     """
