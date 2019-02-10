@@ -87,8 +87,10 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
-
-        
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        time.sleep(seconds)
+        self.stop()
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -96,6 +98,10 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        while inches >= (time.clock()*10):
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -103,7 +109,11 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-
+        pos = Motor.get_position(self.left_motor)
+        while inches <= pos:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
@@ -113,25 +123,39 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        while intensity <= self.sensor_system.color_sensor.get_reflected_light_intensity():
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        while intensity >= self.sensor_system.color_sensor.get_reflected_light_intensity():
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
 
     def go_straight_until_color_is(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is equal to the given color.
         """
-
+        while self.sensor_system.color_sensor. != color:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is NOT equal to the given color.
         """
-
+        while self.sensor_system.color_sensor. == color:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
     # -------------------------------------------------------------------------
@@ -140,6 +164,10 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        while self.sensor_system.ir_proximity_sensor.get_distance() <= inches:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -147,18 +175,29 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        while self.sensor_system.ir_proximity_sensor.get_distance() >= inches:
+            self.left_motor.turn_on(speed * -1)
+            self.right_motor.turn_on(speed * -1)
+        self.stop()
 
     def go_until_distance_is_within(self, delta_inches, speed):
         """
         Goes forward or backward, repeated as necessary, until the robot is
         within the given delta-inches from the nearest object that it senses.
         """
-
+        while self.sensor_system.ir_proximity_sensor.get_distance() >= delta_inches:
+            self.go_forward_until_distance_is_less_than(delta_inches, speed)
+            self.go_backward_until_distance_is_greater_than(delta_inches, speed)
+        self.stop()
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
 
     def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
+        # while self.sensor_system.ir_beacon_sensor.get_heading()
+        # self.left_motor.turn_on(speed)
+        # self.right_motor.turn_on(speed *-1)
+
         pass
 
     def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
@@ -271,9 +310,9 @@ class SensorSystem(object):
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
         # These need the port numbers
-        # self.color_sensor = ColorSensor()
-        # self.ir_proximity_sensor = InfraredProximitySensor()
-        # self.ir_beacon_sensor = InfraredBeaconSensor()
+        self.color_sensor = ColorSensor(3)
+        self.ir_proximity_sensor = InfraredProximitySensor(2)
+        self.ir_beacon_sensor = InfraredBeaconSensor(4)
 
         # These need some configuration
         # self.beacon_system =
@@ -300,6 +339,10 @@ class SoundSystem(object):
         Plays an increasing sequence of short tones,
         stopping when the touch sensor is pressed.
         """
+        count = 1
+        while TouchSensor.is_pressed() == False:
+            ToneMaker.tone(self.tone_maker, count, 4)
+            count = count + 1
 
 
 ###############################################################################
