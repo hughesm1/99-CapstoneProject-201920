@@ -481,6 +481,7 @@ class Beeper(object):
 
     def beep(self,n):
         # DCM: Indicate that this is NON-blocking.
+        #
         # DCM: Indicate that returns a subprocess.Popen, which has a WAIT method
         for j in range(n):
             print('I need to beep')
