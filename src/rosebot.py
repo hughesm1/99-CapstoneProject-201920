@@ -98,7 +98,7 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
-        while inches >= (time.clock()*10):
+        while inches >= (time.time()*10):
             self.left_motor.turn_on(speed)
             self.right_motor.turn_on(speed)
         self.stop()
