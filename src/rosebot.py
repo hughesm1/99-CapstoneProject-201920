@@ -100,7 +100,7 @@ class DriveSystem(object):
         """
         sec = (10*speed)/inches
         self.go(speed,speed)
-        time.sleep(1/sec)
+        time.sleep(sec)
         self.stop()
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
