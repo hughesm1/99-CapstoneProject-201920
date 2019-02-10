@@ -162,17 +162,24 @@ def get_drivey_frame(window, mqtt_sender):
     go_straight_for_seconds_button = ttk.Button(frame, text="Go straight for seconds")
     go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for seconds using time")
     go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for seconds using encoder')
+    time_entry = ttk.Entry(frame, width=8)
+    encoder_entry = ttk.Entry(frame, width=8)
+
+
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     go_straight_for_seconds_button.grid(row=1, column=1)
     go_straight_for_seconds_using_time_button.grid(row=2, column=1)
     go_straight_for_seconds_using_encoder_button.grid(row=3, column=1)
+    time_entry.grid(row=2, column=0)
+    encoder_entry.grid(row=3, column=0)
 
     # Set the Button callbacks:
     go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(mqtt_sender)
-    go_straight_for_seconds_using_time_button["command"] = lambda: handle_straight_seconds_time(mqtt_sender)
-    go_straight_for_seconds_using_encoder_button["command"] = lambda: handle_straight_for_inches_encoder(mqtt_sender)
+    go_straight_for_seconds_using_time_button["command"] = lambda: handle_straight_seconds_time(time_entry, mqtt_sender)
+    go_straight_for_seconds_using_encoder_button["command"] = \
+        lambda: handle_straight_for_inches_encoder(encoder_entry, mqtt_sender)
 
     return frame
 
@@ -341,13 +348,13 @@ def handle_straight_seconds(mqtt_sender):
     print('go straight for seconds')
     mqtt_sender.send_message('go_straight_for_seconds')
 
-def handle_straight_seconds_time(mqtt_sender):
+def handle_straight_seconds_time(time, mqtt_sender):
     print('go straight for inches using time')
-    mqtt_sender.send_message('go_straight_for_inches_using_time')
+    mqtt_sender.send_message('go_straight_for_inches_using_time', [time.get()])
 
-def handle_straight_for_inches_encoder(mqtt_sender):
+def handle_straight_for_inches_encoder(encoder, mqtt_sender):
     print('go straight for inches using encoder')
-    mqtt_sender.send_message('go_straight_for_inches_using_encoder')
+    mqtt_sender.send_message('go_straight_for_inches_using_encoder', [encoder.get()])
 
 def handle_beep(mqtt_sender):
     print('beep')
