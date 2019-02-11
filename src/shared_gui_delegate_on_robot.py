@@ -77,7 +77,7 @@ class Handler(object):
 
     def beep(self, n):
         print('got beep')
-        for _ in range(n):
+        for _ in range(int(n)):
             self.robot.sound_system.beeper.beep()
 
     def tone(self, freq, dur):
