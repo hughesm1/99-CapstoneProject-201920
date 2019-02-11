@@ -18,6 +18,7 @@ def main():
     """
     real_thing()
 
+
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
@@ -25,7 +26,9 @@ def real_thing():
     mqtt_reciever.connect_to_pc()
 
     while True:
-        time.sleep(0.01)
+        time.sleep(.01)
+        if delegate.is_time_to_stop:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
