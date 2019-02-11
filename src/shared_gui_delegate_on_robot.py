@@ -75,11 +75,11 @@ class Handler(object):
 
     def beep(self, n):
         print('got beep')
-        self.beep(n)
+        self.beep(int(n))
 
     def tone(self, freq, dur):
         print('got tone')
-        self.tone(freq, dur)
+        self.tone(int(freq), int(dur))
 
     def speak(self, string):
         print('got speak')

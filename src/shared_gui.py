@@ -210,17 +210,25 @@ def get_sound_frame(window, mqtt_sender):
     beep_button = ttk.Button(frame, text="Beep")
     tone_button = ttk.Button(frame, text="Tone")
     speak_button = ttk.Button(frame, text="Speak")
+    wow_entry = ttk.Entry(frame, width=8)
+    tone_entry = ttk.Entry(frame, width=8)
+    freq_entry = ttk.Entry(frame, width=8)
+    speak_entry = ttk.Entry(frame, width=8)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     beep_button.grid(row=1, column=0)
     tone_button.grid(row=1, column=1)
     speak_button.grid(row=1, column=2)
+    wow_entry.grid(row=2, column=0)
+    tone_entry.grid(row=2, column=1)
+    freq_entry.grid(row=3, column=1)
+    speak_entry.grid(row=2, column=2)
 
     # Set the Button callbacks:
-    beep_button["command"] = lambda: handle_beep(mqtt_sender)
-    tone_button["command"] = lambda: handle_tone(mqtt_sender)
-    speak_button["command"] = lambda: handle_speak(mqtt_sender)
+    beep_button["command"] = lambda: handle_beep(wow_entry, mqtt_sender)
+    tone_button["command"] = lambda: handle_tone(tone_entry, freq_entry, mqtt_sender)
+    speak_button["command"] = lambda: handle_speak(speak_entry, mqtt_sender)
 
     return frame
 ###############################################################################
@@ -367,15 +375,15 @@ def handle_straight_for_inches_encoder(encoder, speed, mqtt_sender):
     print('go straight for inches using encoder')
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [encoder.get(), speed.get()])
 
-def handle_beep(mqtt_sender):
+def handle_beep(num, mqtt_sender):
     print('beep')
-    mqtt_sender.send_message('beep')
+    mqtt_sender.send_message('beep', [num.get()])
 
-def handle_tone(mqtt_sender):
+def handle_tone(tone, freq, mqtt_sender):
     print('tone')
-    mqtt_sender.send_message('tone')
+    mqtt_sender.send_message('tone', [tone.get(), freq.get()])
 
-def handle_speak(mqtt_sender):
+def handle_speak(speak, mqtt_sender):
     print('speak')
-    mqtt_sender.send_message('speak')
+    mqtt_sender.send_message('speak', [speak.get()])
 
