@@ -364,26 +364,26 @@ def handle_exit(mqtt_sender):
     mqtt_sender.send_message('exit')
 
 def handle_straight_seconds(sec, speed, mqtt_sender):
-    print('go straight for seconds')
+    print('go straight for seconds', sec.get())
     mqtt_sender.send_message('go_straight_for_seconds', [sec.get(), speed.get()])
 
 def handle_straight_seconds_time(time, speed,  mqtt_sender):
-    print('go straight for inches using time')
+    print('go straight for inches using time', time.get(), speed.get())
     mqtt_sender.send_message('go_straight_for_inches_using_time', [time.get(), speed.get()])
 
 def handle_straight_for_inches_encoder(encoder, speed, mqtt_sender):
-    print('go straight for inches using encoder')
+    print('go straight for inches using encoder', encoder.get(), speed.get())
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [encoder.get(), speed.get()])
 
 def handle_beep(num, mqtt_sender):
-    print('beep')
+    print('beep', num.get())
     mqtt_sender.send_message('beep', [num.get()])
 
-def handle_tone(tone, freq, mqtt_sender):
-    print('tone')
-    mqtt_sender.send_message('tone', [tone.get(), freq.get()])
+def handle_tone(freq, dur, mqtt_sender):
+    print('tone', freq.get(), dur.get())
+    mqtt_sender.send_message('tone', [freq.get(), dur.get()])
 
 def handle_speak(speak, mqtt_sender):
-    print('speak')
+    print('speak', speak.get())
     mqtt_sender.send_message('speak', [speak.get()])
 
