@@ -13,7 +13,6 @@ from tkinter import ttk
 import shared_gui
 
 
-
 def main():
     """
     This code, which must run on a LAPTOP:
