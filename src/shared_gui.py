@@ -160,8 +160,8 @@ def get_drivey_frame(window, mqtt_sender):
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Drive Stuff")
     go_straight_for_seconds_button = ttk.Button(frame, text="Go straight for seconds")
-    go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for seconds using time")
-    go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for seconds using encoder')
+    go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for inches using time")
+    go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for inches using encoder')
     time_entry = ttk.Entry(frame, width=8)
     speed_entry = ttk.Entry(frame, width=8)
 
