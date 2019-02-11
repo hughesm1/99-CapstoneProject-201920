@@ -83,7 +83,7 @@ class Handler(object):
 
     def tone(self, freq, dur):
         print('got tone')
-        self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur)).wait(int(dur))
+        self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur)).wait(int(dur) * 1000)
 
     def speak(self, string):
         print('got speak')
