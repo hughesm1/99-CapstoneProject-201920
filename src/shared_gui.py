@@ -160,8 +160,8 @@ def get_drivey_frame(window, mqtt_sender):
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Drive Stuff")
     go_straight_for_seconds_button = ttk.Button(frame, text="Go straight for seconds")
-    go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for seconds using time")
-    go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for seconds using encoder')
+    go_straight_for_seconds_using_time_button = ttk.Button(frame, text="Go straight for inches using time")
+    go_straight_for_seconds_using_encoder_button = ttk.Button(frame, text='Go straight for inches using encoder')
     time_entry = ttk.Entry(frame, width=8)
     speed_entry = ttk.Entry(frame, width=8)
 
@@ -171,19 +171,24 @@ def get_drivey_frame(window, mqtt_sender):
     yup_entry = ttk.Entry(frame, width=8)
     mhmm_entry = ttk.Entry(frame, width=8)
 
-
+    summ_label = ttk.Label(frame, text='seconds, speed')
+    ru_label = ttk.Label(frame, text='inches, speed')
+    guy_label = ttk.Label(frame, text='inches, speed')
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    go_straight_for_seconds_button.grid(row=1, column=2)
-    go_straight_for_seconds_using_time_button.grid(row=2, column=2)
-    go_straight_for_seconds_using_encoder_button.grid(row=3, column=2)
-    time_entry.grid(row=2, column=0)
-    speed_entry.grid(row=2, column=1)
-    encoder_entry.grid(row=3, column=0)
-    speedy_entry.grid(row=3, column=1)
-    yup_entry.grid(row=1, column=0)
-    mhmm_entry.grid(row=1, column=1)
+    go_straight_for_seconds_button.grid(row=1, column=3)
+    go_straight_for_seconds_using_time_button.grid(row=2, column=3)
+    go_straight_for_seconds_using_encoder_button.grid(row=3, column=3)
+    time_entry.grid(row=2, column=1)
+    speed_entry.grid(row=2, column=2)
+    encoder_entry.grid(row=3, column=1)
+    speedy_entry.grid(row=3, column=2)
+    yup_entry.grid(row=1, column=1)
+    mhmm_entry.grid(row=1, column=2)
+    summ_label.grid(row=1, column=0)
+    ru_label.grid(row=2, column=0)
+    guy_label.grid(row=3, column=0)
 
     # Set the Button callbacks:
     go_straight_for_seconds_button["command"] = lambda: handle_straight_seconds(yup_entry, mhmm_entry, mqtt_sender)
@@ -214,16 +219,22 @@ def get_sound_frame(window, mqtt_sender):
     tone_entry = ttk.Entry(frame, width=8)
     freq_entry = ttk.Entry(frame, width=8)
     speak_entry = ttk.Entry(frame, width=8)
+    beep_label = ttk.Label(frame, text='# of beeps')
+    tone_label = ttk.Label(frame, text='freq, duration')
+    speak_label = ttk.Label(frame, text='What is said')
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     beep_button.grid(row=1, column=0)
     tone_button.grid(row=1, column=1)
     speak_button.grid(row=1, column=2)
-    wow_entry.grid(row=2, column=0)
-    tone_entry.grid(row=2, column=1)
-    freq_entry.grid(row=3, column=1)
-    speak_entry.grid(row=2, column=2)
+    wow_entry.grid(row=3, column=0)
+    tone_entry.grid(row=3, column=1)
+    freq_entry.grid(row=4, column=1)
+    speak_entry.grid(row=3, column=2)
+    beep_label.grid(row=2, column=0)
+    tone_label.grid(row=2, column=1)
+    speak_label.grid(row=2, column=2)
 
     # Set the Button callbacks:
     beep_button["command"] = lambda: handle_beep(wow_entry, mqtt_sender)
@@ -361,27 +372,35 @@ def handle_exit(mqtt_sender):
       :type mqtt_sender: com.MqttClient
     """
     print('exit')
-    mqtt_sender.send_message('exit')
+    # mqtt_sender.send_message('exit')
+    handle_quit(mqtt_sender)
+    exit()
+
 
 def handle_straight_seconds(sec, speed, mqtt_sender):
     print('go straight for seconds', sec.get())
     mqtt_sender.send_message('go_straight_for_seconds', [sec.get(), speed.get()])
 
+
 def handle_straight_seconds_time(time, speed,  mqtt_sender):
     print('go straight for inches using time', time.get(), speed.get())
     mqtt_sender.send_message('go_straight_for_inches_using_time', [time.get(), speed.get()])
+
 
 def handle_straight_for_inches_encoder(encoder, speed, mqtt_sender):
     print('go straight for inches using encoder', encoder.get(), speed.get())
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [encoder.get(), speed.get()])
 
+
 def handle_beep(num, mqtt_sender):
     print('beep', num.get())
     mqtt_sender.send_message('beep', [num.get()])
 
+
 def handle_tone(freq, dur, mqtt_sender):
     print('tone', freq.get(), dur.get())
     mqtt_sender.send_message('tone', [freq.get(), dur.get()])
+
 
 def handle_speak(speak, mqtt_sender):
     print('speak', speak.get())
