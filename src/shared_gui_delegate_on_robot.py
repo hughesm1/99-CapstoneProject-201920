@@ -15,6 +15,8 @@ class Handler(object):
         :type robot: rosebot.RoseBot
         """
         self.robot = robot
+        self.is_time_to_stop = False
+
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print('got forward', left_wheel_speed, right_wheel_speed)
@@ -54,7 +56,7 @@ class Handler(object):
 
     def quit(self):
         print('got quit')
-        self.quit()
+        self.is_time_to_stop = True
 
     def exit(self):
         print('got exit')
@@ -75,7 +77,8 @@ class Handler(object):
 
     def beep(self, n):
         print('got beep')
-        self.beep(int(n))
+        for _ in range(n):
+            self.robot.sound_system.beeper.beep()
 
     def tone(self, freq, dur):
         print('got tone')
