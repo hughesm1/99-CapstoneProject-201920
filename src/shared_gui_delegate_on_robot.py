@@ -6,7 +6,7 @@
     and Marcus Hughes-Oliver, Zachary Juday, Grant Stewart.
   Winter term, 2018-2019.
 """
-
+import time
 
 class Handler(object):
     def __init__(self, robot):
@@ -79,6 +79,7 @@ class Handler(object):
         print('got beep')
         for _ in range(int(n)):
             self.robot.sound_system.beeper.beep()
+            time.sleep(.5)
 
     def tone(self, freq, dur):
         print('got tone')
