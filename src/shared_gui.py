@@ -281,7 +281,7 @@ def beep_proximity_frame(window, mqtt_sender):
     increase_entry.grid(row=2, column=0)
 
     beep_button["command"] = lambda: handle_beepProx(mqtt_sender, beep_entry, increase_entry)
-
+    return frame
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -460,4 +460,4 @@ def handle_camera(mqtt_sender):
 
 def handle_beepProx(mqtt_sender, beepProx, increase):
     print('beepProx')
-    mqtt_sender.send_message('beepProx', [beepProx, increase])
+    mqtt_sender.send_message('beepProx', [beepProx.get(), increase.get()])
