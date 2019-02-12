@@ -78,7 +78,7 @@ def run_test_go_straight_for_inches_using_encoder():
 
 def run_test_beeper():
     robot=rosebot.Beeper()
-    robot.beep(3)
+    robot.beep()
 
 def run_test_tone_maker():
     robot=rosebot.ToneMaker()

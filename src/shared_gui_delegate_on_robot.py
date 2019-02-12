@@ -82,9 +82,22 @@ class Handler(object):
             time.sleep(.5)
 
     def tone(self, freq, dur):
-        print('got tone')
-        self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur))
+        print('got tone', freq, dur)
+        self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur)).wait()
 
     def speak(self, string):
         print('got speak')
         self.robot.sound_system.speech_maker.speak(string)
+
+    def color(self):
+        print('color')
+        self.robot.sensor_system.color_sensor.get_color()
+
+
+    def proximity(self):
+        print('proximity')
+        self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
+    def camera(self):
+        print('camera')
+        self.robot.sensor_system.camera.get_biggest_blob()
