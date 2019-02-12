@@ -91,12 +91,12 @@ class Handler(object):
 
     def color(self):
         print('color')
-        self.robot.sensor_system.color_sensor()
+        self.robot.sensor_system.color_sensor.get_color()
 
     def proximity(self):
         print('proximity')
-        self.robot.sensor_system.ir_proximity_sensor()
+        self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
     def camera(self):
         print('camera')
-        self.robot.sensor_system.camera()
+        self.robot.sensor_system.camera.get_biggest_blob()
