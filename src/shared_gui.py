@@ -298,7 +298,7 @@ def get_move_with_tone(window, mqtt_sender):
     tone_entry.grid(row=1, column=0)
     increase_entry.grid(row=2, column=0)
 
-    move_with_tone_button["command"] = lambda: handle_beepProx(mqtt_sender, tone_entry, increase_entry)
+    move_with_tone_button["command"] = lambda: handle_toneProx(mqtt_sender, tone_entry, increase_entry)
 
     return frame
 
