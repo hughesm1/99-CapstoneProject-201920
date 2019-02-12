@@ -242,6 +242,29 @@ def get_sound_frame(window, mqtt_sender):
     speak_button["command"] = lambda: handle_speak(speak_entry, mqtt_sender)
 
     return frame
+
+#create a new frame for sensors
+def get_sensor_system(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Sensor Stuff")
+    color_button = ttk.Button(frame, text="Color")
+    proximity_button = ttk.Button(frame, text="Proximity")
+    camera_button = ttk.Button(frame, text="Camera")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    color_button.grid(row=1, column=1)
+    proximity_button.grid(row=2, column=1)
+    camera_button.grid(row=3, column=1)
+
+    # Set the Button callbacks:
+    color_button["command"] = lambda: handle_color(mqtt_sender)
+    proximity_button["command"] = lambda: handle_proximity(mqtt_sender)
+    camera_button["command"] = lambda: handle_camera(mqtt_sender)
+
+    return frame
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -406,3 +429,14 @@ def handle_speak(speak, mqtt_sender):
     print('speak', speak.get())
     mqtt_sender.send_message('speak', [speak.get()])
 
+def handle_color(mqtt_sender):
+    print('color')
+    mqtt_sender.send_message('color')
+
+def handle_proximity(mqtt_sender):
+    print('proximity')
+    mqtt_sender.send_message('proximity')
+
+def handle_camera(mqtt_sender):
+    print('camera')
+    mqtt_sender.send_message('camera')

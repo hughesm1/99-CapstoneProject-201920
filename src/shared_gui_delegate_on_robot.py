@@ -88,3 +88,15 @@ class Handler(object):
     def speak(self, string):
         print('got speak')
         self.robot.sound_system.speech_maker.speak(string)
+
+    def color(self):
+        print('color')
+        self.robot.sensor_system.color_sensor()
+
+    def proximity(self):
+        print('proximity')
+        self.robot.sensor_system.ir_proximity_sensor()
+
+    def camera(self):
+        print('camera')
+        self.robot.sensor_system.camera()
