@@ -265,7 +265,7 @@ def get_sensor_system(window, mqtt_sender):
     camera_button["command"] = lambda: handle_camera(mqtt_sender)
 
     return frame
-
+# perons 1
 def beep_proximity_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
     frame.grid()
@@ -281,7 +281,27 @@ def beep_proximity_frame(window, mqtt_sender):
     increase_entry.grid(row=2, column=0)
 
     beep_button["command"] = lambda: handle_beepProx(mqtt_sender, beep_entry, increase_entry)
+
     return frame
+
+def get_move_with_tone(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="move with tone")
+    move_with_tone_button = ttk.Button(frame, text='move with tone')
+    tone_entry = ttk.Entry(frame)
+    increase_entry = ttk.Entry(frame)
+
+    frame_label.grid(row=0, column=1)
+    move_with_tone_button.grid(row=1, column=1)
+    tone_entry.grid(row=1, column=0)
+    increase_entry.grid(row=2, column=0)
+
+    move_with_tone_button["command"] = lambda: handle_beepProx(mqtt_sender, tone_entry, increase_entry)
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -460,4 +480,8 @@ def handle_camera(mqtt_sender):
 
 def handle_beepProx(mqtt_sender, beepProx, increase):
     print('beepProx')
-    mqtt_sender.send_message('beepProx', [beepProx.get(), increase.get()])
+    mqtt_sender.send_message('beepProx', [beepProx.get, increase.get])
+
+def handle_toneProx(mqtt_sender, toneProx, increase):
+    print('move with tone')
+    mqtt_sender.send_message('move with tone', [toneProx.get, increase.get])

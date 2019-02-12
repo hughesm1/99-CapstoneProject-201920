@@ -67,7 +67,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     drive_frame = shared_gui.get_drivey_frame(main_frame,mqtt_sender)
     sound_frame = shared_gui.get_sound_frame(main_frame,mqtt_sender)
     sensor_frame= shared_gui.get_sensor_system(main_frame,mqtt_sender)
-    person2_frame=shared_gui.get_person2_system(main_frame,mqtt_sender)
+    person2_frame=shared_gui.get_move_with_tone(main_frame,mqtt_sender)
 
     return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame
 

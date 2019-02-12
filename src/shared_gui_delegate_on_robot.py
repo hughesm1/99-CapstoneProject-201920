@@ -111,3 +111,7 @@ class Handler(object):
             if dist < 2:
                 break
         self.robot.drive_system.stop()
+
+    def move_with_tone(self):
+        print('move with tone')
+        self.robot.sensor_system.camera.get_biggest_blob()
