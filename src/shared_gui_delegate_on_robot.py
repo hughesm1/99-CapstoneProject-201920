@@ -93,6 +93,7 @@ class Handler(object):
         print('color')
         self.robot.sensor_system.color_sensor.get_color()
 
+
     def proximity(self):
         print('proximity')
         self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
