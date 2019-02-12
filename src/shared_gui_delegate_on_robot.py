@@ -115,4 +115,4 @@ class Handler(object):
 
     def move_with_tone(self):
         print('move with tone')
-        self.robot.sensor_system.camera.get_biggest_blob()
+        self.robot.drive_system.go_forward_until_distance_is_less_than()
