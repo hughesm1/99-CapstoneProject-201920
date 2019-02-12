@@ -113,6 +113,17 @@ class Handler(object):
                 break
         self.robot.drive_system.stop()
 
+    # code for person 2 to do feature 9
     def move_with_tone(self):
         print('move with tone')
-        self.robot.drive_system.go_forward_until_distance_is_less_than()
+        self.robot.drive_system.go_forward_until_distance_is_less_than(1,100) #posible poblem is staying on this line may just change to go and put stop at end
+        #self.robot.drive_system.go(100,100)
+        while True:
+            m=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if m <= 10:
+                n=1000*(1/m) # is not liear but it will change as it gets closer
+                self.robot.sound_system.tone_maker.play_tone(n,500).wait() #i beleave that duration is in ms so 500 should be 1/2 a second
+                if m <= 1:
+                    #self.robot.drive_system.stop()
+                    break
+
