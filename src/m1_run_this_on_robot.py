@@ -18,7 +18,8 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
-    # my_stuff()
+    my_stuff()
+
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
     robot.arm_and_claw.raise_arm()
@@ -73,16 +74,19 @@ def run_test_speak_maker():
     robot=rosebot.SpeechMaker()
     robot.speak("don't make me sing")
 
-# def my_stuff():
-    # robot = rosebot.SensorSystem()
-    # disty = 0
-    # while True:
-    #     dist = int(robot.sensor_system.ir_proximity_sensor.get_distance())
-    #     print('beep')
-    #     if disty > dist:
-    #         break
-    #     disty = dist
-    # robot.ir_proximity_sensor.
+def my_stuff():
+    robot = rosebot.SensorSystem()
+    robo = rosebot.Beeper()
+    rob = rosebot.RoseBot()
+    disty = 0
+    while True:
+        dist = int(robot.ir_proximity_sensor.get_distance_in_inches())
+        robo.beep()
+        # print('beep')
+        if disty > dist:
+            break
+        disty = dist
+    rob.drive_system.stop()
 
 def real_thing():
     robot = rosebot.RoseBot()

@@ -478,10 +478,11 @@ def handle_camera(mqtt_sender):
     print('camera')
     mqtt_sender.send_message('camera')
 
-def handle_beepProx(mqtt_sender, beepProx, increase):
+def handle_beepProx(mqtt_sender, beepprox, increase):
     print('beepProx')
-    mqtt_sender.send_message('beepProx', [beepProx.get, increase.get])
+    mqtt_sender.send_message('beepProx', [beepprox.get(), increase.get()])
+
 
 def handle_toneProx(mqtt_sender, toneProx, increase):
     print('move with tone')
-    mqtt_sender.send_message('move with tone', [toneProx.get, increase.get])
+    mqtt_sender.send_message('move with tone', [toneProx.get(), increase.get()])
