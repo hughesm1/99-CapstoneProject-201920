@@ -283,7 +283,7 @@ def beep_proximity_frame(window, mqtt_sender):
     beep_button["command"] = lambda: handle_beepProx(mqtt_sender, beep_entry, increase_entry)
 
     return frame
-
+# person 2 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 def get_move_with_tone(window, mqtt_sender):
     frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
     frame.grid()
@@ -485,4 +485,4 @@ def handle_beepProx(mqtt_sender, beepprox, increase):
 
 def handle_toneProx(mqtt_sender, toneProx, increase):
     print('move with tone')
-    mqtt_sender.send_message('move with tone', [toneProx.get(), increase.get()])
+    mqtt_sender.send_message('move_with_tone', [toneProx.get(), increase.get()])
