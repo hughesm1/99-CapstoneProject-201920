@@ -107,7 +107,7 @@ class Handler(object):
         self.robot.drive_system.go(100, 100)
         while True:
             dist = int(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            self.robot.sound_system.beeper.beep().wait()
+            self.robot.sound_system.beeper.beep().wait(200)
             if dist < 2:
                 break
         self.robot.drive_system.stop()
