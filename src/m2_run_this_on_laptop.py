@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -50,7 +50,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -67,16 +67,18 @@ def get_shared_frames(main_frame, mqtt_sender):
     drive_frame = shared_gui.get_drivey_frame(main_frame,mqtt_sender)
     sound_frame = shared_gui.get_sound_frame(main_frame,mqtt_sender)
     sensor_frame= shared_gui.get_sensor_system(main_frame,mqtt_sender)
+    person2_frame=shared_gui.get_person2_system(main_frame,mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame
+    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     drive_frame.grid(row=3, column=0)
     sound_frame.grid(row=4, column=0)
     sensor_frame.grid(row=5, column=0)
+    person2_frame.grid(row=0, column=1)
 
 
 # -----------------------------------------------------------------------------
