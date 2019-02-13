@@ -263,6 +263,11 @@ def get_sensor_system(window, mqtt_sender):
     inches_backward_label = ttk.Label(frame, text="inches to stop at")
     speed_backward_label = ttk.Label(frame, text="speed backward")
 
+    proximity_within_button = ttk.Button(frame, text='Proximity within')
+    speed_within_entry = ttk.Entry(frame)
+
+
+
 
     camera_button = ttk.Button(frame, text="Camera")
     area_entry = ttk.Entry(frame)
@@ -283,6 +288,9 @@ def get_sensor_system(window, mqtt_sender):
     speed_backward_entry.grid(row=4, column=1)
     inches_backward_label.grid(row=3, column=0)
     speed_backward_label.grid(row=3, column=1)
+
+    proximity_within_button.grid(row=6,column=3)
+    speed_within_entry.grid(row=6, column=1)
 
 
     camera_button.grid(row=8, column=2)
@@ -521,13 +529,16 @@ def handle_color(mqtt_sender):
     mqtt_sender.send_message('color')
 
 def handle_proximity_forward(mqtt_sender, inches, speed):
-    print('proximity')
+    print('proximity forward')
     mqtt_sender.send_message('proximity_forward', [inches.get(), speed.get()])
 
 def handle_proximity_backward(mqtt_sender, inches, speed):
-    print('proximity')
+    print('proximity backward')
     mqtt_sender.send_message('proximity_backward', [inches.get(), speed.get()])
 
+def handel_proximity_within(mqtt_sender,inches,speed,delta)
+    print('proximity within')
+    mqtt_sender.send_message('proximity_within', [inches.get(), speed.get()])
 
 
 def handle_camera(mqtt_sender, cam_speed_entry, area_entry):
