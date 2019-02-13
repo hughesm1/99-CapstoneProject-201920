@@ -96,11 +96,12 @@ class Handler(object):
 
     def proximity(self, inches, speed):
         print('proximity')
-        self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(int(inches), int(speed))
 
-    def camera(self):
+    def camera(self, speed, area):
         print('camera')
-        self.robot.sensor_system.camera.get_biggest_blob()
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+
     # marcus stuff
     def beepProx(self, beepProx, increase):
         print('got beepProx')

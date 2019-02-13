@@ -254,6 +254,8 @@ def get_sensor_system(window, mqtt_sender):
     inches_entry = ttk.Entry(frame)
     speed_entry = ttk.Entry(frame)
     camera_button = ttk.Button(frame, text="Camera")
+    area_entry = ttk.Entry(frame)
+    cam_speed_entry = ttk.Entry(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
@@ -261,12 +263,15 @@ def get_sensor_system(window, mqtt_sender):
     proximity_button.grid(row=2, column=2)
     inches_entry.grid(row=2, column=0)
     speed_entry.grid(row=2, column=1)
-    camera_button.grid(row=3, column=1)
+    camera_button.grid(row=3, column=2)
+    cam_speed_entry.grid(row=3, column=1)
+    area_entry.grid(row=3, column=0)
+
 
     # Set the Button callbacks:
     color_button["command"] = lambda: handle_color(mqtt_sender)
     proximity_button["command"] = lambda: handle_proximity(mqtt_sender,inches_entry,speed_entry)
-    camera_button["command"] = lambda: handle_camera(mqtt_sender)
+    camera_button["command"] = lambda: handle_camera(mqtt_sender, cam_speed_entry, area_entry)
 
     return frame
 # perons 1 ###############################################################################################
@@ -481,11 +486,11 @@ def handle_color(mqtt_sender):
 
 def handle_proximity(mqtt_sender, inches, speed):
     print('proximity')
-    mqtt_sender.send_message('proximity', inches, speed)
+    mqtt_sender.send_message('proximity', [inches.get(), speed.get()])
 
-def handle_camera(mqtt_sender):
+def handle_camera(mqtt_sender, cam_speed_entry, area_entry):
     print('camera')
-    mqtt_sender.send_message('camera')
+    mqtt_sender.send_message('camera', [cam_speed_entry.get(), area_entry.get()])
 
 def handle_beepProx(mqtt_sender, beepprox, increase):
     print('beepProx')

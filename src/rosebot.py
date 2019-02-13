@@ -174,8 +174,12 @@ class DriveSystem(object):
         """
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
-        if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches:
-            self.stop()
+        while True:
+            m = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(m)
+            if m <= inches:
+                self.stop()
+                break
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -212,6 +216,7 @@ class DriveSystem(object):
         is nonnegative.  Requires that the user turn on the Beacon.
         """
 
+
     def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
         """
         Spins counter-clockwise at the given speed until the heading to the Beacon
@@ -225,23 +230,35 @@ class DriveSystem(object):
         Assumes that the Beacon is turned on and placed straight ahead.
         """
 
-        # -------------------------------------------------------------------------
-        # Methods for driving that use the camera.
-        # -------------------------------------------------------------------------
-        def display_camera_data(self):
+
+    # -------------------------------------------------------------------------
+    # Methods for driving that use the camera.
+    # -------------------------------------------------------------------------
+    def display_camera_data(self):
             """
             Displays on the GUI the Blob data of the Blob that the camera sees
             (if any).
             """
 
-        def spin_clockwise_until_sees_object(self, speed, area):
-            """
-            Spins clockwise at the given speed until the camera sees an object
-            of the trained color whose area is at least the given area.
-            Requires that the user train the camera on the color of the object.
-            """
+    def spin_clockwise_until_sees_object(self, speed, area):
+        """
+        Spins clockwise at the given speed until the camera sees an object
+        of the trained color whose area is at least the given area.
+        Requires that the user train the camera on the color of the object.
+        """
+        self.go(int(speed),int(-speed))
+        while True:
+            blob = self.sensor_system.camera.get_biggest_blob()
+            bolb_h=blob.height
+            blob_w=blob.width
+            found_area = blob_w*bolb_h
+            if found_area >= area:
+                self.stop()
+                break
 
-        def spin_counterclockwise_until_sees_object(self, speed, area):
+
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
             """
             Spins counter-clockwise at the given speed until the camera sees an object
             of the trained color whose area is at least the given area.
@@ -455,7 +472,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        # self.camera = Camera()
+        self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
