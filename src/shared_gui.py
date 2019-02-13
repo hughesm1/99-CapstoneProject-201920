@@ -365,7 +365,7 @@ def get_move_with_tone(window, mqtt_sender):
     tone_label = ttk.Label(frame, text="start tone")
     increase_entry_label = ttk.Label(frame, text="increase factor")
 
-    find_with_camera_button = ttk.Button(frame, text='spin with camera')
+    find_with_camera_button = ttk.Button(frame, text='find with camera')
     set_direction_entry = ttk.Entry(frame)
     set_direction_label = ttk.Label(frame, text="0 = clock 1 = counter")
     set_speed_entry = ttk.Entry(frame)
