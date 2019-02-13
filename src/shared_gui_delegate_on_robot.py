@@ -132,11 +132,11 @@ class Handler(object):
         self.robot.drive_system.go(50, 50)
         n = int(initial_frequency) # the initial value that the user puts in
         x = int(increase_in_frequency) # the rate of increase for frequency
-        while True:
+        """while True:
             self.robot.sound_system.tone_maker.play_tone(n, 500).wait()
             m = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if m <= 20:
-                break
+                break"""
         while True:
             m = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if m <= 20:
