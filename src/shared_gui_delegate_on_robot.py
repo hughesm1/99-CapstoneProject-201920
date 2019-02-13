@@ -117,7 +117,7 @@ class Handler(object):
     def move_with_tone(self, initial_frequency, increase_in_frequency):
         print('got move with tone')
         #self.robot.drive_system.go_forward_until_distance_is_less_than(1,100) #posible poblem is staying on this line and not moving on may just change to go and put stop at end
-        self.robot.drive_system.go(100, 100)
+        self.robot.drive_system.go(50, 50)
         n = int(initial_frequency) # the initial value that the user puts in
         x = int(increase_in_frequency) # the rate of increase for frequency
         while True:
