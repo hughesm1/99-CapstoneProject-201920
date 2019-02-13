@@ -251,17 +251,21 @@ def get_sensor_system(window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Sensor Stuff")
     color_button = ttk.Button(frame, text="Color")
     proximity_button = ttk.Button(frame, text="Proximity")
+    inches_entry = ttk.Entry(frame)
+    speed_entry = ttk.Entry(frame)
     camera_button = ttk.Button(frame, text="Camera")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     color_button.grid(row=1, column=1)
-    proximity_button.grid(row=2, column=1)
+    proximity_button.grid(row=2, column=2)
+    inches_entry.grid(row=2, column=0)
+    speed_entry.grid(row=2, column=1)
     camera_button.grid(row=3, column=1)
 
     # Set the Button callbacks:
     color_button["command"] = lambda: handle_color(mqtt_sender)
-    proximity_button["command"] = lambda: handle_proximity(mqtt_sender)
+    proximity_button["command"] = lambda: handle_proximity(mqtt_sender,inches_entry,speed_entry)
     camera_button["command"] = lambda: handle_camera(mqtt_sender)
 
     return frame
@@ -475,9 +479,9 @@ def handle_color(mqtt_sender):
     print('color')
     mqtt_sender.send_message('color')
 
-def handle_proximity(mqtt_sender):
+def handle_proximity(mqtt_sender, inches, speed):
     print('proximity')
-    mqtt_sender.send_message('proximity')
+    mqtt_sender.send_message('proximity', inches, speed)
 
 def handle_camera(mqtt_sender):
     print('camera')

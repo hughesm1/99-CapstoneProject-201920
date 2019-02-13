@@ -94,9 +94,9 @@ class Handler(object):
         self.robot.sensor_system.color_sensor.get_color()
 
 
-    def proximity(self):
+    def proximity(self, inches, speed):
         print('proximity')
-        self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
 
     def camera(self):
         print('camera')
