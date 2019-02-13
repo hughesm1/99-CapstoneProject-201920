@@ -102,7 +102,7 @@ class Handler(object):
         print('proximity')
         self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
 
-        
+
 
     def camera(self, speed, area):
         print('camera')
