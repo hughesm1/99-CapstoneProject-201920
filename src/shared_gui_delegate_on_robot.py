@@ -142,6 +142,7 @@ class Handler(object):
                 break"""
         while True:
             m = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(m)
             if m <= 20:
                 if m <= 3:
                     self.robot.drive_system.stop()
