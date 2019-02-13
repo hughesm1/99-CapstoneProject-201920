@@ -154,9 +154,12 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
-        self.left_motor.turn_on(speed)
-        self.right_motor.turn_on(speed)
-        while self.sensor_system.color_sensor.get_color()
+
+        while self.sensor_system.color_sensor.get_color_as_name() != color:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
+
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
@@ -165,6 +168,10 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+        while self.sensor_system.color_sensor.get_color_as_name() == color:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+        self.stop()
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
