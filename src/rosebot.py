@@ -236,9 +236,17 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     def display_camera_data(self):
             """
-            Displays on the GUI the Blob data of the Blob that the camera sees
+            Displays on the concel the Blob data of the Blob that the camera sees
             (if any).
             """
+            blob = self.sensor_system.camera.get_biggest_blob()
+            bolb_h=blob.height
+            blob_w=blob.width
+            found_area = blob_w*bolb_h
+            print(found_area)
+
+
+
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
