@@ -250,27 +250,50 @@ def get_sensor_system(window, mqtt_sender):
 
     frame_label = ttk.Label(frame, text="Sensor Stuff")
     color_button = ttk.Button(frame, text="Color")
-    proximity_button = ttk.Button(frame, text="Proximity")
-    inches_entry = ttk.Entry(frame)
-    speed_entry = ttk.Entry(frame)
+
+    proximity_forward_button = ttk.Button(frame, text="Proximity forward")
+    inches_forward_entry = ttk.Entry(frame)
+    speed_forward_entry = ttk.Entry(frame)
+    inches_forward_label = ttk.Label(frame, text="inches to stop at")
+    speed_forward_label = ttk.Label(frame, text="speed forward")
+
+    proximity_backward_button = ttk.Button(frame, text="Proximity backward")
+    inches_backward_entry = ttk.Entry(frame)
+    speed_backward_entry = ttk.Entry(frame)
+    inches_backward_label = ttk.Label(frame, text="inches to stop at")
+    speed_backward_label = ttk.Label(frame, text="speed backward")
+
+
     camera_button = ttk.Button(frame, text="Camera")
     area_entry = ttk.Entry(frame)
     cam_speed_entry = ttk.Entry(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    color_button.grid(row=1, column=1)
-    proximity_button.grid(row=2, column=2)
-    inches_entry.grid(row=2, column=0)
-    speed_entry.grid(row=2, column=1)
-    camera_button.grid(row=3, column=2)
-    cam_speed_entry.grid(row=3, column=1)
-    area_entry.grid(row=3, column=0)
+    color_button.grid(row=9, column=1)
+
+    proximity_forward_button.grid(row=2, column=2)
+    inches_forward_entry.grid(row=2, column=0)
+    speed_forward_entry.grid(row=2, column=1)
+    inches_forward_label.grid(row=1,column=0)
+    speed_forward_label.grid(row=1,column=1)
+
+    proximity_backward_button.grid(row=4, column=2)
+    inches_backward_entry.grid(row=4, column=0)
+    speed_backward_entry.grid(row=4, column=1)
+    inches_backward_label.grid(row=3, column=0)
+    speed_backward_label.grid(row=3, column=1)
+
+
+    camera_button.grid(row=8, column=2)
+    cam_speed_entry.grid(row=8, column=1)
+    area_entry.grid(row=8, column=0)
 
 
     # Set the Button callbacks:
     color_button["command"] = lambda: handle_color(mqtt_sender)
-    proximity_button["command"] = lambda: handle_proximity(mqtt_sender,inches_entry,speed_entry)
+    proximity_forward_button["command"] = lambda: handle_proximity_forward(mqtt_sender,inches_forward_entry,speed_forward_entry)
+    proximity_backward_button["command"] = lambda: handle_proximity_backward(mqtt_sender, inches_backward_entry, speed_backward_entry)
     camera_button["command"] = lambda: handle_camera(mqtt_sender, cam_speed_entry, area_entry)
 
     return frame
@@ -497,9 +520,14 @@ def handle_color(mqtt_sender):
     print('color')
     mqtt_sender.send_message('color')
 
-def handle_proximity(mqtt_sender, inches, speed):
+def handle_proximity_forward(mqtt_sender, inches, speed):
+    print('proximity')
+    mqtt_sender.send_message('proximity_forward', [inches.get(), speed.get()])
+
+def handle_proximity_backward(mqtt_sender, inches, speed):
     print('proximity')
     mqtt_sender.send_message('proximity', [inches.get(), speed.get()])
+
 
 def handle_camera(mqtt_sender, cam_speed_entry, area_entry):
     print('camera')
