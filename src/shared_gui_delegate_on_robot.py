@@ -140,6 +140,7 @@ class Handler(object):
             if m <= 20:
                 if m <= 3:
                     self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
                     break
                 z = n + x * (1 / m)  # the actual increase in frequency  not linear but will increase every inch
                 self.robot.sound_system.tone_maker.play_tone(z,500).wait() #i beleave that duration is in ms so 500 should be 1/2 a second
