@@ -20,7 +20,7 @@ def main():
     #run_test_arm_raise()
     #run_test_arm_calibrate()
     #run_test_move_arm_to_position()
-    # run_test_lower_arm()
+    #run_test_lower_arm()
 
     #run_test_go()
     #run_test_stop()
@@ -92,33 +92,50 @@ def run_test_speak_maker():
 
 
 def run_test_pick_up_with_led():
-    pick_up_object_with_led(100,1,1)
+    pick_up_object_with_led(30,2,1)
 
 
 def pick_up_object_with_led(speed, start_time, rate):
     robot = rosebot.RoseBot()
     robot.drive_system.go(speed, speed)
     left = robot.led_system.left_led
+    left.set_color_by_name('red')
     right = robot.led_system.right_led
+    right.set_color_by_name('red')
     original_distance = robot.sensor_system.ir_proximity_sensor.get_distance()
     robot.drive_system.left_motor.reset_position()
-    while original_distance >= (abs(robot.drive_system.left_motor.get_position())*robot.drive_system.wheel_circumference)/360:
+    time_between = (start_time/4)
+    a = 0
+    while True:
         distance = robot.sensor_system.ir_proximity_sensor.get_distance()
-        time_between = (start_time + (start_time*math.exp((-distance)*rate)))/10
-        left.turn_on()
-        left.turn_off()
-        time.sleep(time_between)
-        right.turn_on()
-        right.turn_off()
-        time.sleep(time_between)
-        right.turn_on()
-        left.turn_on()
-        right.turn_off()
-        left.turn_off()
-        time.sleep(time_between)
-        time.sleep(time_between)
+        if distance <= 5:
+            robot.drive_system.stop()
+            robot.arm_and_claw.raise_arm()
+            left.turn_off()
+            right.turn_off()
+            break
+        time_between = time_between - (math.exp(-distance*rate)/4)
+        if a == 0:
+            left.turn_on()
+            time.sleep(.2)
+            left.turn_off()
+            time.sleep(time_between)
+            a = 1
+        if a == 1:
+            right.turn_on()
+            time.sleep(.2)
+            right.turn_off()
+            time.sleep(time_between)
+            a = 2
+        if a == 2:
+            right.turn_on()
+            left.turn_on()
+            time.sleep(.2)
+            right.turn_off()
+            left.turn_off()
+            time.sleep(time_between)
+            a = 0
     robot.drive_system.stop()
-    robot.arm_and_claw.raise_arm()
     right.turn_off()
     left.turn_off()
 
@@ -140,6 +157,3 @@ def real_thing():
 # -----------------------------------------------------------------------------
 main()
 # -----------------------------------------------------------------------------
-# Calls  main  to start the ball rolling.
-# -----------------------------------------------------------------------------
-main()
