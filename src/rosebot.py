@@ -225,7 +225,7 @@ class DriveSystem(object):
             m = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(m)
         while  self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches:
-            self.go_backward_until_distance_is_greater_than(delta, speed)
+            self.go_backward_until_distance_is_greater_than(delta/2, speed)
             m = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(m)
         self.stop()
@@ -263,9 +263,6 @@ class DriveSystem(object):
             (if any).
             """
             blob = self.sensor_system.camera.get_biggest_blob()
-            bolb_h=blob.height
-            blob_w=blob.width
-            found_area = blob_w*bolb_h
             print(blob)
 
 

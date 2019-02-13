@@ -102,10 +102,16 @@ class Handler(object):
         print('proximity backward')
         self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
 
+    def proximity_within(self, delta, inches, speed):
+        print('proximity within')
+        self.robot.drive_system.go_until_distance_is_within(int(delta),int(inches),int(speed))
 
+    def camera_val(self):
+        print('camera val')
+        self.robot.drive_system.display_camera_data()
 
-    def camera(self, speed, area):
-        print('camera')
+    def clock_camera(self, speed, area):
+        print('clock_camera')
         self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
 
     # marcus stuff

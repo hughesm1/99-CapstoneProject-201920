@@ -265,17 +265,30 @@ def get_sensor_system(window, mqtt_sender):
 
     proximity_within_button = ttk.Button(frame, text='Proximity within')
     speed_within_entry = ttk.Entry(frame)
+    inches_within_entry = ttk.Entry(frame)
+    delta_within_entry = ttk.Entry(frame)
+    speed_within_label = ttk.Label(frame, text= 'speed within')
+    inches_within_label = ttk.Label(frame, text='inches within')
+    delta_within_label = ttk.Label(frame, text='delta within')
 
+    camera_val_button = ttk.Button(frame, text='camera_val')
 
+    clock_camera_button = ttk.Button(frame, text="Clock Camera")
+    clock_area_entry = ttk.Entry(frame)
+    clock_cam_speed_entry = ttk.Entry(frame)
+    clock_area_label = ttk.Label(frame, text='area')
+    clock_cam_speed_label = ttk.Label(frame, text='speed')
 
+    counter_camera_button = ttk.Button(frame, text="counter Camera")
+    counter_area_entry = ttk.Entry(frame)
+    counter_cam_speed_entry = ttk.Entry(frame)
+    counter_area_label = ttk.Label(frame, text='area')
+    counter_cam_speed_label = ttk.Label(frame, text='speed')
 
-    camera_button = ttk.Button(frame, text="Camera")
-    area_entry = ttk.Entry(frame)
-    cam_speed_entry = ttk.Entry(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    color_button.grid(row=9, column=1)
+    color_button.grid(row=20, column=1)
 
     proximity_forward_button.grid(row=2, column=2)
     inches_forward_entry.grid(row=2, column=0)
@@ -291,18 +304,34 @@ def get_sensor_system(window, mqtt_sender):
 
     proximity_within_button.grid(row=6,column=3)
     speed_within_entry.grid(row=6, column=1)
+    inches_within_entry.grid(row=6, column=0)
+    delta_within_entry.grid(row=6,column=2)
+    speed_within_label.grid(row=5,column=1)
+    inches_within_label.grid(row=5,column=0)
+    delta_within_label.grid(row=5,column=2)
 
+    camera_val_button.grid(row=8,column=0)
 
-    camera_button.grid(row=8, column=2)
-    cam_speed_entry.grid(row=8, column=1)
-    area_entry.grid(row=8, column=0)
+    clock_camera_button.grid(row=10, column=2)
+    clock_cam_speed_entry.grid(row=10, column=1)
+    clock_area_entry.grid(row=10, column=0)
+    clock_cam_speed_label.grid(row=9, column=1)
+    clock_area_label.grid(row=9,column=0)
+
+    counter_camera_button.grid(row=12, column=2)
+    counter_cam_speed_entry.grid(row=12, column=1)
+    counter_area_entry.grid(row=12, column=0)
+    counter_cam_speed_label.grid(row=11, column=1)
+    counter_area_label.grid(row=11, column=0)
 
 
     # Set the Button callbacks:
     color_button["command"] = lambda: handle_color(mqtt_sender)
     proximity_forward_button["command"] = lambda: handle_proximity_forward(mqtt_sender,inches_forward_entry,speed_forward_entry)
     proximity_backward_button["command"] = lambda: handle_proximity_backward(mqtt_sender, inches_backward_entry, speed_backward_entry)
-    camera_button["command"] = lambda: handle_camera(mqtt_sender, cam_speed_entry, area_entry)
+    proximity_within_button["command"] = lambda: handel_proximity_within(mqtt_sender, delta_within_entry, inches_within_entry, speed_backward_entry)
+    clock_camera_button["command"] = lambda: handle_clock_camera(mqtt_sender, clock_cam_speed_entry, clock_area_entry)
+    camera_val_button["command"] = lambda : handel_camera_val(mqtt_sender)
 
     return frame
 # perons 1 ###############################################################################################
@@ -536,14 +565,19 @@ def handle_proximity_backward(mqtt_sender, inches, speed):
     print('proximity backward')
     mqtt_sender.send_message('proximity_backward', [inches.get(), speed.get()])
 
-def handel_proximity_within(mqtt_sender,inches,speed,delta)
+def handel_proximity_within(mqtt_sender,delta,inches,speed,):
     print('proximity within')
-    mqtt_sender.send_message('proximity_within', [inches.get(), speed.get(), delta.get()])
+    mqtt_sender.send_message('proximity_within', [delta.get(), inches.get(), speed.get()])
+
+def handel_camera_val(mqtt_sender):
+    print('camera val')
+    mqtt_sender.send_message('camera_val')
+
+def handle_clock_camera(mqtt_sender, clock_cam_speed_entry, clock_area_entry):
+    print('clock camera')
+    mqtt_sender.send_message('clock_camera', [clock_cam_speed_entry.get(), clock_area_entry.get()])
 
 
-def handle_camera(mqtt_sender, cam_speed_entry, area_entry):
-    print('camera')
-    mqtt_sender.send_message('camera', [cam_speed_entry.get(), area_entry.get()])
 
 def handle_beepProx(mqtt_sender, beepprox, increase):
     print('beepProx')
