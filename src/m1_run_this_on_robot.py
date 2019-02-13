@@ -17,8 +17,8 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
+    # run_test_color_intense()
     real_thing()
-    # my_stuff()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
@@ -73,6 +73,11 @@ def run_test_tone_maker():
 def run_test_speak_maker():
     robot=rosebot.SpeechMaker()
     robot.speak("don't make me sing")
+
+def run_test_color_intense():
+    robot = rosebot.RoseBot()
+    print('go straight until intensity')
+    robot.drive_system.go_straight_until_intensity_is_greater_than(20, 100)
 
 def my_stuff():
     robot = rosebot.SensorSystem()
