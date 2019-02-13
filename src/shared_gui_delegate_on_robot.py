@@ -101,16 +101,26 @@ class Handler(object):
     def camera(self):
         print('camera')
         self.robot.sensor_system.camera.get_biggest_blob()
-
+    # marcus stuff
     def beepProx(self, beepProx, increase):
         print('got beepProx')
+        n = int(beepProx)
+        x = int(increase)
         self.robot.drive_system.go(100, 100)
         while True:
             dist = int(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            self.robot.sound_system.beeper.beep().wait()
-            time.sleep(.1)
-            if dist < 2:
+            self.robot.sound_system.beeper.beep().wait(dist)
+            time.sleep(2)
+            if dist <= 20:
                 break
+        while True:
+            dist = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if dist <= 20:
+                if dist <= 3:
+                    self.robot.drive_system.stop()
+                    break
+                inc = n + x * (1 / dist)
+                self.robot.sound_system.beeper.beep().wait(inc)
         self.robot.drive_system.stop()
 
     # code for person 2 to do feature 9

@@ -18,7 +18,7 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
-    my_stuff()
+    # my_stuff()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
