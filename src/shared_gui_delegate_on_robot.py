@@ -106,10 +106,10 @@ class Handler(object):
         print('got beepProx')
         n = int(beepProx)
         x = int(increase)
-        self.robot.drive_system.go(100, 100)
+        self.robot.drive_system.go(30, 30)
         while True:
             dist = int(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            self.robot.sound_system.beeper.beep().wait(dist)
+            self.robot.sound_system.beeper.beep().wait()
             time.sleep(2)
             if dist <= 20:
                 break
@@ -118,9 +118,11 @@ class Handler(object):
             if dist <= 20:
                 if dist <= 3:
                     self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
                     break
                 inc = n + x * (1 / dist)
-                self.robot.sound_system.beeper.beep().wait(inc)
+                self.robot.sound_system.beeper.beep().wait()
+                time.sleep(.1)
         self.robot.drive_system.stop()
 
     # code for person 2 to do feature 9
