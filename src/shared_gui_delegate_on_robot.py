@@ -114,6 +114,10 @@ class Handler(object):
         print('clock_camera')
         self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
 
+    def counter_camera(self, speed, area):
+        print('counter_camera')
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
+
     # marcus stuff
     def beepProx(self, beepProx, increase):
         print('got beepProx')

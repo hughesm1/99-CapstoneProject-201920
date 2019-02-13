@@ -332,6 +332,7 @@ def get_sensor_system(window, mqtt_sender):
     proximity_within_button["command"] = lambda: handel_proximity_within(mqtt_sender, delta_within_entry, inches_within_entry, speed_backward_entry)
     clock_camera_button["command"] = lambda: handle_clock_camera(mqtt_sender, clock_cam_speed_entry, clock_area_entry)
     camera_val_button["command"] = lambda : handel_camera_val(mqtt_sender)
+    counter_camera_button["command"] = lambda: handle_counter_camera(mqtt_sender, counter_cam_speed_entry, counter_area_entry)
 
     return frame
 # perons 1 ###############################################################################################
@@ -576,6 +577,10 @@ def handel_camera_val(mqtt_sender):
 def handle_clock_camera(mqtt_sender, clock_cam_speed_entry, clock_area_entry):
     print('clock camera')
     mqtt_sender.send_message('clock_camera', [clock_cam_speed_entry.get(), clock_area_entry.get()])
+
+def handle_counter_camera(mqtt_sender, counter_cam_speed_entry, counter_area_entry):
+    print('counter camera')
+    mqtt_sender.send_message('counter_camera', [counter_cam_speed_entry.get(), counter_area_entry.get()])
 
 
 
