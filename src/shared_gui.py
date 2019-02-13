@@ -529,6 +529,7 @@ def handle_proximity_backward(mqtt_sender, inches, speed):
     mqtt_sender.send_message('proximity', [inches.get(), speed.get()])
 
 
+
 def handle_camera(mqtt_sender, cam_speed_entry, area_entry):
     print('camera')
     mqtt_sender.send_message('camera', [cam_speed_entry.get(), area_entry.get()])
