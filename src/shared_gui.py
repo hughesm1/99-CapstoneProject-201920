@@ -526,7 +526,7 @@ def handle_proximity_forward(mqtt_sender, inches, speed):
 
 def handle_proximity_backward(mqtt_sender, inches, speed):
     print('proximity')
-    mqtt_sender.send_message('proximity', [inches.get(), speed.get()])
+    mqtt_sender.send_message('proximity_backward', [inches.get(), speed.get()])
 
 
 
