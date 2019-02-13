@@ -128,8 +128,10 @@ class DriveSystem(object):
         """
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
-        while intensity >= self.sensor_system.color_sensor.get_reflected_light_intensity():
-            self.stop()
+        while True:
+            if intensity >= self.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.stop()
+                break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
@@ -138,8 +140,10 @@ class DriveSystem(object):
         """
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
-        while intensity <= self.sensor_system.color_sensor.get_reflected_light_intensity():
-            self.stop()
+        while True:
+            if intensity <= self.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.stop()
+                break
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -156,8 +160,9 @@ class DriveSystem(object):
         """
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
-        while self.sensor_system.color_sensor.get_color_as_name() == color:
-            self.stop()
+        while True:
+            if self.sensor_system.color_sensor.get_color_as_name() == color:
+                self.stop()
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -169,8 +174,9 @@ class DriveSystem(object):
         """
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
-        while self.sensor_system.color_sensor.get_color_as_name() != color:
-            self.stop()
+        while True:
+            if self.sensor_system.color_sensor.get_color_as_name() != color:
+                self.stop()
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -560,7 +566,9 @@ class ColorSensor(object):
         but in practice more like 3 to 90+ in our classroom lighting with our
         downward-facing sensor that is about 0.25 inches from the ground.
         """
-        return self._color_sensor.reflected_light_intensity
+        intense = self._color_sensor.reflected_light_intensity
+        print(intense)
+        return intense
 
     def get_ambient_light_intensity(self):
         """
