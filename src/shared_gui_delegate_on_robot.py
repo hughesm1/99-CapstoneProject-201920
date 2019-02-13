@@ -95,11 +95,11 @@ class Handler(object):
 
 
     def proximity_forward(self, inches, speed):
-        print('proximity')
+        print('proximity forward')
         self.robot.drive_system.go_forward_until_distance_is_less_than(int(inches), int(speed))
 
     def proximity_backward(self, inches, speed):
-        print('proximity')
+        print('proximity backward')
         self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
 
 
