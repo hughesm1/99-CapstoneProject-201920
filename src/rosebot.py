@@ -567,7 +567,6 @@ class ColorSensor(object):
         downward-facing sensor that is about 0.25 inches from the ground.
         """
         intense = self._color_sensor.reflected_light_intensity
-        print(intense)
         return intense
 
     def get_ambient_light_intensity(self):
