@@ -175,6 +175,10 @@ class Handler(object):
             self.robot.drive_system.spin_clockwise_until_sees_object(speed,30)
         if direction == 1:
             self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,30)
+        b = self.robot.sensor_system.camera.get_biggest_blob()
+        x = b.center
+      
+
 
 
 
