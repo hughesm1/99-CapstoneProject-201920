@@ -20,10 +20,10 @@ def main():
     #run_test_arm_raise()
     #run_test_arm_calibrate()
     #run_test_move_arm_to_position()
-    #run_test_lower_arm()
+    # run_test_lower_arm()
 
     #run_test_go()
-    run_test_stop()
+    #run_test_stop()
     #run_test_go_straight_for_seconds()
     #run_test_go_straight_for_inches_using_time()
     #run_test_go_straight_for_inches_using_encoder()
@@ -32,7 +32,7 @@ def main():
     #run_test_tone_maker()
     #run_test_speak_maker()
 
-    # run_test_pick_up_with_led()
+    run_test_pick_up_with_led()
 
     # real_thing()
 
@@ -98,30 +98,29 @@ def run_test_pick_up_with_led():
 def pick_up_object_with_led(speed, start_time, rate):
     robot = rosebot.RoseBot()
     robot.drive_system.go(speed, speed)
+    left = robot.led_system.left_led
+    right = robot.led_system.right_led
     original_distance = robot.sensor_system.ir_proximity_sensor.get_distance()
-    while True:
+    robot.drive_system.left_motor.reset_position()
+    while original_distance >= (abs(robot.drive_system.left_motor.get_position())*robot.drive_system.wheel_circumference)/360:
         distance = robot.sensor_system.ir_proximity_sensor.get_distance()
-        if abs(distance) <= 3:
-            robot.led_system.left_led.turn_off()
-            robot.led_system.right_led.turn_off()
-            robot.drive_system.stop()
-            robot.arm_and_claw.raise_arm().wait()
-            break
-        time_between = (start_time + (start_time*math.exp((-distance)*rate)))/100
-        robot.led_system.left_led.turn_on().wait()
-        robot.led_system.left_led.turn_off().wait()
+        time_between = (start_time + (start_time*math.exp((-distance)*rate)))/10
+        left.turn_on()
+        left.turn_off()
         time.sleep(time_between)
-        robot.led_system.right_led.turn_on().wait()
-        robot.led_system.right_led.turn_off().wait()
+        right.turn_on()
+        right.turn_off()
         time.sleep(time_between)
-        robot.led_system.right_led.turn_on().wait()
-        robot.led_system.left_led.turn_on().wait()
-        robot.led_system.right_led.turn_off().wait()
-        robot.led_system.left_led.turn_off().wait()
+        right.turn_on()
+        left.turn_on()
+        right.turn_off()
+        left.turn_off()
         time.sleep(time_between)
         time.sleep(time_between)
-
-
+    robot.drive_system.stop()
+    robot.arm_and_claw.raise_arm()
+    right.turn_off()
+    left.turn_off()
 
 def real_thing():
     robot=rosebot.RoseBot()
