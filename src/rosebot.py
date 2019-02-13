@@ -154,7 +154,9 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
-
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while self.sensor_system.color_sensor.get_color()
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
