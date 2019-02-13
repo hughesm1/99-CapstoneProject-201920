@@ -297,12 +297,18 @@ def get_move_with_tone(window, mqtt_sender):
     frame = ttk.Frame(window, padding=2, borderwidth=5, relief="ridge")
     frame.grid()
 
-    frame_label = ttk.Label(frame, text="move with tone")
+    frame_label = ttk.Label(frame, text="Person 2")
     move_with_tone_button = ttk.Button(frame, text='move with tone')
     tone_entry = ttk.Entry(frame)
     increase_entry = ttk.Entry(frame)
     tone_label = ttk.Label(frame, text="start tone")
     increase_entry_label = ttk.Label(frame, text="increase factor")
+
+    find_with_camera_button = ttk.Button(frame, text='spin with camera')
+    set_direction_entry = ttk.Entry(frame)
+    set_direction_label = ttk.Label(frame, text="0 = clock 1 = counter")
+    set_speed_entry = ttk.Entry(frame)
+    set_speed_label = ttk.Label(frame, text='set speed')
 
 
     frame_label.grid(row=0, column=1)
@@ -312,7 +318,14 @@ def get_move_with_tone(window, mqtt_sender):
     increase_entry_label.grid(row=2, column=0)
     increase_entry.grid(row=3, column=0)
 
+    find_with_camera_button.grid(row=5, column=1)
+    set_direction_entry.grid(row=5, column=0)
+    set_direction_label.grid(row=4, column=0)
+    set_speed_entry.grid(row=7, column=0)
+    set_speed_label.grid(row=6, column=0)
+
     move_with_tone_button["command"] = lambda: handle_toneProx(mqtt_sender, tone_entry, increase_entry)
+    find_with_camera_button["command"] = lambda: handle_toneProx(mqtt_sender, set_speed_entry, set_direction_entry)
 
     return frame
 
@@ -500,3 +513,7 @@ def handle_beepProx(mqtt_sender, beepprox, increase):
 def handle_toneProx(mqtt_sender, toneProx, increase):
     print('move with tone')
     mqtt_sender.send_message('move_with_tone', [toneProx.get(), increase.get()])
+
+def handle_spin_with_camera(mqtt_sensor, speed, direction):
+    print("find with camera")
+    mqtt_sender.send_message('find_with_camera', [speed.get(), direction.get()])
