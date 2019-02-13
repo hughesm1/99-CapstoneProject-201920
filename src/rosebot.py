@@ -252,7 +252,7 @@ class DriveSystem(object):
             bolb_h=blob.height
             blob_w=blob.width
             found_area = blob_w*bolb_h
-            print(found_area)
+            print(blob)
 
 
 
