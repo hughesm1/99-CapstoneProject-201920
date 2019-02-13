@@ -4,3 +4,7 @@
 import time
 
 print(time.time())
+
+if 19 >= dist <= 10:
+    self.robot.sound_system.beeper.beep().wait()
+    time.sleep(1)
