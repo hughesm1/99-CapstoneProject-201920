@@ -176,7 +176,25 @@ class Handler(object):
         if direction == 1:
             self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,30)
         b = self.robot.sensor_system.camera.get_biggest_blob()
-        x = b.center
+        x = b.center.x
+        if x >= 170:
+            while True:
+                self.robot.drive_system.go(25,-25)
+                b = self.robot.sensor_system.camera.get_biggest_blob()
+                x = b.center.x
+                if x < 170:
+                    self.robot.drive_system.stop()
+                    break
+        if x <=150:
+             while True:
+                self.robot.drive_system.go(-25, 25)
+                b = self.robot.sensor_system.camera.get_biggest_blob()
+                x = b.center.x
+                if x > 150:
+                    self.robot.drive_system.stop()
+                    break
+        self.robot.drive_system.stop()
+        self.move_with_tone(100,2000)
 
 
 
