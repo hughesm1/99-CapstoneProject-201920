@@ -49,11 +49,19 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
+    # line follow
+    line_follow_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    line_follow_frame.grid()
+    frame_label = ttk.Label(line_follow_frame, text="Line Follow")
+    beep_button = ttk.Button(line_follow_frame, text="Line Follow")
+    frame_label.grid(row=0, column=0)
+    beep_button.grid(row=1, column=1)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame,
+                sound_frame, sensor_frame, beep_proximity_frame, line_follow_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -72,7 +80,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame, line_follow_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
@@ -80,6 +88,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     sound_frame.grid(row=1, column=4)
     sensor_frame.grid(row=0, column=4)
     beep_proximity_frame.grid(row=0, column=5)
+    line_follow_frame.grid(row=0, column=6)
 
 
 # -----------------------------------------------------------------------------
