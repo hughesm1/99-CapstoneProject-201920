@@ -29,7 +29,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title("Grant lego12")
+    root.title("Zach lego12")
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -40,17 +40,17 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
-
+    get_my_frames(main_frame,mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -66,15 +66,59 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     drive_frame = shared_gui.get_drivey_frame(main_frame,mqtt_sender)
     sound_frame = shared_gui.get_sound_frame(main_frame,mqtt_sender)
+    sensor_frame = shared_gui.get_sensor_system(main_frame, mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame):
+    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame
+
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     drive_frame.grid(row=3, column=0)
-    sound_frame.grid(row=4, column=0)
+    sound_frame.grid(row=0, column=1)
+    sensor_frame.grid(row=3, column =1)
+
+
+def get_my_frames(main_frame,mqtt_sender):
+    led_frame_function(main_frame,mqtt_sender)
+
+
+def led_frame_function(main_frame, mqtt_sender):
+    led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    led_frame.grid(row=1,column=1)
+
+    led_frame_label = ttk.Label(led_frame, text="Pick up with LED")
+    led_frame_label.grid(row=0, column=0)
+
+    led_frame_button = ttk.Button(led_frame, text='Go')
+    led_frame_button.grid(row=2, column=3)
+
+    led_frame_speed_entry = ttk.Entry(led_frame)
+    led_frame_speed_entry_label = ttk.Label(led_frame, text='speed')
+    led_frame_speed_entry.grid(row=2,column=0)
+    led_frame_speed_entry_label.grid(row=1,column=0)
+
+    led_frame_start_time_entry = ttk.Entry(led_frame)
+    led_frame_start_time_entry_label = ttk.Label(led_frame, text='start time between')
+    led_frame_start_time_entry.grid(row=2,column=1)
+    led_frame_start_time_entry_label.grid(row=1,column=1)
+
+    led_frame_rate_entry = ttk.Entry(led_frame)
+    led_frame_rate_entry_label = ttk.Label(led_frame, text='decrease rate between')
+    led_frame_rate_entry.grid(row=2,column=2)
+    led_frame_rate_entry_label.grid(row=1,column=2)
+
+    led_frame_button['command'] = lambda: handle_ledProx(mqtt_sender,
+                                                         int(led_frame_speed_entry.get()),
+                                                         int(led_frame_start_time_entry.get()),
+                                                         int(led_frame_rate_entry.get()))
+    return led_frame
+
+
+def handle_ledProx(mqtt_sender, speed, start_time, rate):
+    print('ledProx')
+    mqtt_sender.send_message('ledProx', [speed, start_time, rate])
 
 
 # -----------------------------------------------------------------------------

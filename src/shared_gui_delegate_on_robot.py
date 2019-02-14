@@ -7,6 +7,8 @@
   Winter term, 2018-2019.
 """
 import time
+import m3_extra
+
 
 class Handler(object):
     def __init__(self, robot):
@@ -197,7 +199,8 @@ class Handler(object):
         self.robot.drive_system.stop()
         self.move_with_tone(100,2000)
 
-
+    def ledProx(self, speed, start_time, rate):
+        m3_extra.ledProx(self.robot, speed, start_time, rate)
 
 
 

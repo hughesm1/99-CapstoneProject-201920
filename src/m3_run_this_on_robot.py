@@ -32,9 +32,9 @@ def main():
     #run_test_tone_maker()
     #run_test_speak_maker()
 
-    run_test_pick_up_with_led()
+    # run_test_pick_up_with_led()
 
-    # real_thing()
+    real_thing()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
@@ -91,53 +91,8 @@ def run_test_speak_maker():
     robot.speak("don't make me sing")
 
 
-def run_test_pick_up_with_led():
-    pick_up_object_with_led(30,2,1)
 
 
-def pick_up_object_with_led(speed, start_time, rate):
-    robot = rosebot.RoseBot()
-    robot.drive_system.go(speed, speed)
-    left = robot.led_system.left_led
-    left.set_color_by_name('red')
-    right = robot.led_system.right_led
-    right.set_color_by_name('red')
-    original_distance = robot.sensor_system.ir_proximity_sensor.get_distance()
-    robot.drive_system.left_motor.reset_position()
-    time_between = (start_time/4)
-    a = 0
-    while True:
-        distance = robot.sensor_system.ir_proximity_sensor.get_distance()
-        if distance <= 5:
-            robot.drive_system.stop()
-            robot.arm_and_claw.raise_arm()
-            left.turn_off()
-            right.turn_off()
-            break
-        time_between = time_between - (math.exp(-distance*rate)/4)
-        if a == 0:
-            left.turn_on()
-            time.sleep(.2)
-            left.turn_off()
-            time.sleep(time_between)
-            a = 1
-        if a == 1:
-            right.turn_on()
-            time.sleep(.2)
-            right.turn_off()
-            time.sleep(time_between)
-            a = 2
-        if a == 2:
-            right.turn_on()
-            left.turn_on()
-            time.sleep(.2)
-            right.turn_off()
-            left.turn_off()
-            time.sleep(time_between)
-            a = 0
-    robot.drive_system.stop()
-    right.turn_off()
-    left.turn_off()
 
 def real_thing():
     robot=rosebot.RoseBot()
