@@ -207,6 +207,9 @@ class Handler(object):
     def ledProx(self, speed, start_time, rate):
         m3_extra.ledProx(self.robot, speed, start_time, rate)
 
+    def go_get_with_camera(self, left_or_right, speed, start_time, rate):
+        m3_extra.go_get_with_camera(self.robot, left_or_right, speed, start_time, rate)
+
     def straight_intensity_greater(self, intensity, speed):
         while True:
             self.robot.drive_system.go(int(speed), int(speed))

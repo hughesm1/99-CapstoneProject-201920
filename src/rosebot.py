@@ -280,8 +280,7 @@ class DriveSystem(object):
             bolb_h=blob.height
             blob_w=blob.width
             found_area = blob_w*bolb_h
-            print(bolb_h)
-            print(blob_w)
+            print(blob)
             if found_area >= area:
                 self.stop()
                 break
@@ -300,8 +299,7 @@ class DriveSystem(object):
             bolb_h = blob.height
             blob_w = blob.width
             found_area = blob_w * bolb_h
-            print(bolb_h)
-            print(blob_w)
+            print(area, found_area, blob)
             if found_area >= area:
                 self.stop()
                 break

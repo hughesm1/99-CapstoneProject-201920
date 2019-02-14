@@ -75,18 +75,19 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
-    drive_frame.grid(row=3, column=0)
+    drive_frame.grid(row=1, column=1)
     sound_frame.grid(row=0, column=1)
-    sensor_frame.grid(row=3, column =1)
+    sensor_frame.grid(row=0, column =2)
 
 
 def get_my_frames(main_frame,mqtt_sender):
     led_frame_function(main_frame,mqtt_sender)
+    get_with_camera_frame(main_frame, mqtt_sender)
 
 
 def led_frame_function(main_frame, mqtt_sender):
     led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
-    led_frame.grid(row=1,column=1)
+    led_frame.grid(row=2,column=1)
 
     led_frame_label = ttk.Label(led_frame, text="Pick up with LED")
     led_frame_label.grid(row=0, column=0)
@@ -115,12 +116,51 @@ def led_frame_function(main_frame, mqtt_sender):
                                                          int(led_frame_rate_entry.get()))
     return led_frame
 
+def get_with_camera_frame(main_frame, mqtt_sender):
+
+    frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    frame.grid(row=1,column=2)
+
+    frame_lable = ttk.Label(frame, text='Get with Camera, LED')
+    frame_lable.grid(row=0,column=0)
+
+    frame_button = ttk.Button(frame, text='Go')
+    frame_button.grid(row=2, column=4)
+
+    frame_clock = ttk.Entry(frame)
+    frame_clock_lable = ttk.Label(frame, text= 'C-Clockwise=0,Clockwise=1')
+    frame_clock.grid(row=2,column=0)
+    frame_clock_lable.grid(row=1, column=0)
+
+    frame_speed_entry = ttk.Entry(frame)
+    frame_speed_entry_label = ttk.Label(frame, text='speed')
+    frame_speed_entry.grid(row=2,column=1)
+    frame_speed_entry_label.grid(row=1,column=1)
+
+    frame_start_time_entry = ttk.Entry(frame)
+    frame_start_time_entry_label = ttk.Label(frame, text='start time between')
+    frame_start_time_entry.grid(row=2,column=2)
+    frame_start_time_entry_label.grid(row=1,column=2)
+
+    frame_rate_entry = ttk.Entry(frame)
+    frame_rate_entry_label = ttk.Label(frame, text='decrease rate between')
+    frame_rate_entry.grid(row=2,column=3)
+    frame_rate_entry_label.grid(row=1,column=3)
+
+    frame_button['command'] = lambda: handle_get_with_camera(mqtt_sender,int(frame_clock.get()),
+                                                             int(frame_speed_entry.get()),
+                                                             int(frame_start_time_entry.get()),
+                                                             int(frame_rate_entry.get()))
+
+    return frame
 
 def handle_ledProx(mqtt_sender, speed, start_time, rate):
     print('ledProx')
     mqtt_sender.send_message('ledProx', [speed, start_time, rate])
 
-
+def handle_get_with_camera(mqtt_sender, left_or_right, speed, start_time, rate):
+    print('camera with LED')
+    mqtt_sender.send_message('go_get_with_camera',[left_or_right, speed, start_time, rate])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

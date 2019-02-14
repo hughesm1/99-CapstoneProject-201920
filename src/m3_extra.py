@@ -50,3 +50,12 @@ def ledProx(robot, speed, start_time, rate):
             time.sleep(time_between)
             a = 0
             b = 1
+
+
+def go_get_with_camera(robot, left_or_right, speed, start_time, rate):
+    area = 500
+    if left_or_right == 0:
+        robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+    if left_or_right == 1:
+        robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+    ledProx(robot, speed, start_time, rate)
