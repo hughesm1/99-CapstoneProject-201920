@@ -18,7 +18,7 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_get_color()
-    run_test_not_color()
+    # run_test_not_color()
     # run_test_color_intense_greater()
     # run_test_color_intense_less()
     real_thing()

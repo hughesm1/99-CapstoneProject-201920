@@ -126,25 +126,30 @@ class Handler(object):
         n = int(beepProx)
         x = int(increase)
         self.robot.drive_system.go(30, 30)
-        while True:
-            dist = int(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            self.robot.sound_system.beeper.beep().wait()
-            time.sleep(2)
-            if dist <= 20:
-                break
+        # while True:
+        #     dist = int(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+        #     self.robot.sound_system.beeper.beep().wait()
+        #     time.sleep(2)
+        #     if dist <= 20:
+        #         break
         while True:
             dist = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-            if dist <= 20:
-                if 19 >= dist >= 5:
-                    if dist <= 3:
+            if 19 >= dist:
+                # print(dist)
+                if dist <= 10:
+                    print(dist)
+                    if dist <= 1:
                         self.robot.drive_system.stop()
                         self.robot.arm_and_claw.raise_arm()
+                        # print(dist)
                         break
-                    # inc = n + x * (1 / dist)
+                # inc = n + x * (1 / dist)
                     self.robot.sound_system.beeper.beep().wait()
                     time.sleep(.1)
-                self.robot.sound_system.beeper.beep().wait()
-                time.sleep(.5)
+                    self.robot.sound_system.beeper.beep().wait()
+                    time.sleep(.1)
+            self.robot.sound_system.beeper.beep().wait()
+            time.sleep(.5)
         self.robot.drive_system.stop()
 
     # code for person 2 to do feature 9
@@ -201,6 +206,35 @@ class Handler(object):
 
     def ledProx(self, speed, start_time, rate):
         m3_extra.ledProx(self.robot, speed, start_time, rate)
+
+    def straight_intensity_greater(self, intensity, speed):
+        while True:
+            self.robot.drive_system.go(int(speed), int(speed))
+            if int(intensity) <= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.robot.drive_system.stop()
+                break
+
+    def straight_intensity_less(self, intensity, speed):
+        while True:
+            self.robot.drive_system.go(int(speed), int(speed))
+            if int(intensity) >= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.robot.drive_system.stop()
+                break
+
+    def straight_until_color_is(self, color, speed):
+        while True:
+            self.robot.drive_system.go(int(speed), int(speed))
+            if color == self.robot.sensor_system.color_sensor.get_color_as_name():
+                self.robot.drive_system.stop()
+                break
+
+    def straight_until_color_is_not(self, color, speed):
+        while True:
+            self.robot.drive_system.go(int(speed), int(speed))
+            if color != self.robot.sensor_system.color_sensor.get_color_as_name():
+                self.robot.drive_system.stop()
+                break
+
 
 
 
