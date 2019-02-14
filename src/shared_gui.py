@@ -372,7 +372,14 @@ def get_sensor_system(window, mqtt_sender):
 
 
     # Set the Button callbacks:
-    # color_button["command"] = lambda: handle_color(mqtt_sender)
+    straight_intensity_greater_button["command"] = \
+        lambda: handle_straight_intensity_greater(mqtt_sender, intensity_greater_entry, intensity_greater_speed_entry)
+    straight_intensity_less_button["command"] = \
+        lambda: handle_staight_intensity_less(mqtt_sender, intensity_less_entry, intensity_less_speed_entry)
+    straight_until_color_is_button["command"] = \
+        lambda: handle_straight_until_color_is(mqtt_sender, color_is_entry, color_is_speed_entry)
+    straight_until_color_is_not_button["command"] = \
+        lambda: handle_straight_until_color_is_not(mqtt_sender, color_is_not_entry, color_is_not_speed_entry)
     proximity_forward_button["command"] = lambda: handle_proximity_forward(mqtt_sender,inches_forward_entry,speed_forward_entry)
     proximity_backward_button["command"] = lambda: handle_proximity_backward(mqtt_sender, inches_backward_entry, speed_backward_entry)
     proximity_within_button["command"] = lambda: handel_proximity_within(mqtt_sender, delta_within_entry, inches_within_entry, speed_backward_entry)
@@ -642,3 +649,19 @@ def handle_toneProx(mqtt_sender, toneProx, increase):
 def handle_spin_with_camera(mqtt_sender, speed, direction):
     print("find with camera")
     mqtt_sender.send_message('find_with_camera', [speed.get(), direction.get()])
+
+def handle_straight_intensity_greater(mqtt_sender, intensity_greater_entry, intensity_greater_speed_entry):
+    print('straight intensity greater', intensity_greater_entry.get(), intensity_greater_speed_entry.get())
+    mqtt_sender.send_message('straight_intensity_greater', [intensity_greater_entry.get(), intensity_greater_speed_entry.get()])
+
+def handle_staight_intensity_less(mqtt_sender, intensity_less_entry, intensity_less_speed_entry):
+    print('straight intensity less', intensity_less_entry.get(), intensity_less_speed_entry.get())
+    mqtt_sender.send_message('straight_intensity_less', [intensity_less_entry.get(), intensity_less_speed_entry.get()])
+
+def handle_straight_until_color_is(mqtt_sender, color_is_entry, color_is_speed_entry):
+    print('straight until color is', color_is_entry.get(), color_is_speed_entry.get())
+    mqtt_sender.send_message('straight_until_color_is', [color_is_entry.get(), color_is_speed_entry.get()])
+
+def handle_straight_until_color_is_not(mqtt_sender, color_is_not_entry, color_is_not_speed_entry):
+    print('straight until color is not', color_is_not_entry.get(), color_is_not_speed_entry.get())
+    mqtt_sender.send_message('straight_until_color_is_not', [color_is_not_entry.get(), color_is_not_speed_entry.get()])
