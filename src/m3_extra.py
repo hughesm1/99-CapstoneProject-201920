@@ -5,7 +5,11 @@ import rosebot
 
 
 def ledProx(robot, speed, start_time, rate):
-    robot.drive_system.go(speed, speed)
+    print(speed)
+    print(start_time)
+    print(rate)
+
+    robot.drive_system.go(int(speed), speed)
     robot.drive_system.left_motor.reset_position()
     left = robot.led_system.left_led
     right = robot.led_system.right_led
