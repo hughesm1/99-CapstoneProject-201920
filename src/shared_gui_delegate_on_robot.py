@@ -171,10 +171,10 @@ class Handler(object):
                 self.robot.sound_system.tone_maker.play_tone(n,500).wait()
 
     def find_with_camera(self, speed, direction):
-        if direction == 0:
-            self.robot.drive_system.spin_clockwise_until_sees_object(speed,30)
-        if direction == 1:
-            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,30)
+        if int(direction) == 0:
+            self.robot.drive_system.spin_clockwise_until_sees_object(int(speed),30)
+        if int(direction) == 1:
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),30)
         b = self.robot.sensor_system.camera.get_biggest_blob()
         x = b.center.x
         if x >= 170:
