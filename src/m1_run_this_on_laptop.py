@@ -77,9 +77,9 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     drive_frame.grid(row=3, column=0)
-    sound_frame.grid(row=4, column=0)
-    sensor_frame.grid(row=5, column=0)
-    beep_proximity_frame.grid(row=0, column=4)
+    sound_frame.grid(row=1, column=4)
+    sensor_frame.grid(row=0, column=4)
+    beep_proximity_frame.grid(row=0, column=5)
 
 
 # -----------------------------------------------------------------------------

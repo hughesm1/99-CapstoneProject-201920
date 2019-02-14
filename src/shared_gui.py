@@ -249,7 +249,30 @@ def get_sensor_system(window, mqtt_sender):
     frame.grid()
 
     frame_label = ttk.Label(frame, text="Sensor Stuff")
-    color_button = ttk.Button(frame, text="Color")
+
+    straight_intensity_less_button = ttk.Button(frame, text="Go straight until intensity is less than")
+    intensity_less_entry = ttk.Entry(frame)
+    intensity_less_speed_entry = ttk.Entry(frame)
+    intensity_less_label = ttk.Label(frame, text='intensity')
+    intensity_less_speed_label = ttk.Label(frame, text='speed')
+
+    straight_intensity_greater_button = ttk.Button(frame, text='Go straight until intensity is greater than')
+    intensity_greater_entry = ttk.Entry(frame)
+    intensity_greater_speed_entry = ttk.Entry(frame)
+    intensity_greater_label = ttk.Label(frame, text='intensity')
+    intensity_greater_speed_label = ttk.Label(frame, text='speed')
+
+    straight_until_color_is_button = ttk.Button(frame, text='Go straight until color is')
+    color_is_entry = ttk.Entry(frame)
+    color_is_speed_entry = ttk.Entry(frame)
+    color_is_label = ttk.Label(frame, text='color (make it capital)')
+    color_is_speed_label = ttk.Label(frame, text='speed')
+
+    straight_until_color_is_not_button = ttk.Button(frame, text='Go straight until color is not')
+    color_is_not_entry = ttk.Entry(frame)
+    color_is_not_speed_entry = ttk.Entry(frame)
+    color_is_not_label = ttk.Label(frame, text='color (make it capital)')
+    color_is_not_speed_label = ttk.Label(frame, text='speed')
 
     proximity_forward_button = ttk.Button(frame, text="Proximity forward")
     inches_forward_entry = ttk.Entry(frame)
@@ -288,7 +311,30 @@ def get_sensor_system(window, mqtt_sender):
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    color_button.grid(row=20, column=1)
+
+    straight_intensity_less_button.grid(row=14, column=2)
+    intensity_less_entry.grid(row=14, column=0)
+    intensity_less_speed_entry.grid(row=14, column=1)
+    intensity_less_label.grid(row=13, column=0)
+    intensity_less_speed_label.grid(row=13, column=1)
+
+    straight_intensity_greater_button.grid(row=17, column=2)
+    intensity_greater_entry.grid(row=17, column=0)
+    intensity_greater_speed_entry.grid(row=17, column=1)
+    intensity_greater_label.grid(row=16, column=0)
+    intensity_greater_speed_label.grid(row=16, column=1)
+
+    straight_until_color_is_button.grid(row=20, column=2)
+    color_is_entry.grid(row=20, column=0)
+    color_is_speed_entry.grid(row=20, column=1)
+    color_is_label.grid(row=19, column=0)
+    color_is_speed_label.grid(row=19, column=1)
+
+    straight_until_color_is_not_button.grid(row=23, column=2)
+    color_is_not_entry.grid(row=23, column=0)
+    color_is_not_speed_entry.grid(row=23, column=1)
+    color_is_not_label.grid(row=22, column=0)
+    color_is_not_speed_label.grid(row=22, column=1)
 
     proximity_forward_button.grid(row=2, column=2)
     inches_forward_entry.grid(row=2, column=0)
@@ -326,7 +372,7 @@ def get_sensor_system(window, mqtt_sender):
 
 
     # Set the Button callbacks:
-    color_button["command"] = lambda: handle_color(mqtt_sender)
+    # color_button["command"] = lambda: handle_color(mqtt_sender)
     proximity_forward_button["command"] = lambda: handle_proximity_forward(mqtt_sender,inches_forward_entry,speed_forward_entry)
     proximity_backward_button["command"] = lambda: handle_proximity_backward(mqtt_sender, inches_backward_entry, speed_backward_entry)
     proximity_within_button["command"] = lambda: handel_proximity_within(mqtt_sender, delta_within_entry, inches_within_entry, speed_backward_entry)
@@ -593,6 +639,6 @@ def handle_toneProx(mqtt_sender, toneProx, increase):
     print('move with tone')
     mqtt_sender.send_message('move_with_tone', [toneProx.get(), increase.get()])
 
-def handle_spin_with_camera(mqtt_sensor, speed, direction):
+def handle_spin_with_camera(mqtt_sender, speed, direction):
     print("find with camera")
     mqtt_sender.send_message('find_with_camera', [speed.get(), direction.get()])
