@@ -439,7 +439,7 @@ def get_move_with_tone(window, mqtt_sender):
     set_speed_label.grid(row=6, column=0)
 
     move_with_tone_button["command"] = lambda: handle_toneProx(mqtt_sender, tone_entry, increase_entry)
-    find_with_camera_button["command"] = lambda: handle_toneProx(mqtt_sender, set_speed_entry, set_direction_entry)
+    find_with_camera_button["command"] = lambda: handle_spin_with_camera(mqtt_sender, set_speed_entry, set_direction_entry)
 
     return frame
 
