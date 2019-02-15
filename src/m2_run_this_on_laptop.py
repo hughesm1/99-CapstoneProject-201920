@@ -46,7 +46,7 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
-
+    my_final_frame(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
@@ -69,7 +69,10 @@ def get_shared_frames(main_frame, mqtt_sender):
     sensor_frame= shared_gui.get_sensor_system(main_frame,mqtt_sender)
     person2_frame=shared_gui.get_move_with_tone(main_frame,mqtt_sender)
 
+
     return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame
+
+
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame):
     teleop_frame.grid(row=0, column=0)
@@ -81,6 +84,26 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     person2_frame.grid(row=0, column=2)
 
 
+
+
+def my_final_frame(main_frame, mqtt_sender):
+    frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    frame.grid(row=0, column = 4)
+
+    frame_lable = ttk.Label(frame, text = 'final')
+    drag_race_button = ttk.Button(frame, text='drag race')
+
+    frame_lable.grid(row=0, column=0)
+    drag_race_button.grid(row=2, column= 2)
+
+
+
+
+    return frame
+
+def handle_drag_race(mqtt_snder, input):
+    print('race')
+    mqtt_sender.send_message('drag_race',[input])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

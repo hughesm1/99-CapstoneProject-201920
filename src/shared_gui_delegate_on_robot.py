@@ -8,6 +8,7 @@
 """
 import time
 import m3_extra
+import m2_extra
 
 
 class Handler(object):
@@ -237,6 +238,9 @@ class Handler(object):
             if color != self.robot.sensor_system.color_sensor.get_color_as_name():
                 self.robot.drive_system.stop()
                 break
+
+    def raceprox(self, input):
+        m2_extra.drag_race(self.robot,start_speed,acelleration)
 
 
 
