@@ -95,20 +95,27 @@ def my_final_frame(main_frame, mqtt_sender):
     drag_race_speed_entry = ttk.Entry(frame)
     drag_race_speed_label = ttk.Label(frame, text = 'start speed')
     drag_race_acceleration_entry = ttk.Entry(frame)
-    drag_race_acceleration_elabel = ttk.Label(frame, text = 'acceleration')
+    drag_race_acceleration_label = ttk.Label(frame, text = 'acceleration')
 
     frame_lable.grid(row=0, column=0)
     drag_race_button.grid(row=2, column= 2)
     drag_race_speed_entry.grid(row=2, column=0)
     drag_race_speed_label.grid(row=1, column = 0)
     drag_race_acceleration_entry.grid(row=2, column=1)
-    drag_race_acceleration_elabel.grid(row=1, column=1)
+    drag_race_acceleration_label.grid(row=1, column=1)
+
+    drag_race_button["command"] = lambda: handle_drag_race(mqtt_sender, drag_race_speed_entry, drag_race_acceleration_entry)
 
     return frame
+class Delagate(object):
+    def __init__(self ,x):
+        self.x = x
+    def print_GUI(self):
+        print(self.x)
 
-def handle_drag_race(mqtt_snder, input):
+def handle_drag_race(mqtt_sender, start_speed, acceleration):
     print('race')
-    mqtt_sender.send_message('drag_race',[input])
+    mqtt_sender.send_message('drag_race',[start_speed.get(),acceleration.get()])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

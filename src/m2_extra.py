@@ -5,6 +5,7 @@ import rosebot
 
 
 def drag_race(robot,start_speed, acceration):
+    """ :type robot: rosebot.Rosebot"""
     robot = rosebot.RoseBot() # will be removed for actual code just here to check . method
 
     start_fule, speed, curent_fule = initial_stat_systems(robot, start_speed, acceration)

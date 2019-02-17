@@ -239,8 +239,8 @@ class Handler(object):
                 self.robot.drive_system.stop()
                 break
 
-    def raceprox(self, input):
-        m2_extra.drag_race(self.robot,start_speed,acelleration)
+    def drag_race(self, start_speed, acceleration):
+        m2_extra.drag_race(self.robot,int(start_speed),int(acceleration))
 
 
 
