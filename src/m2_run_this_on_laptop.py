@@ -75,29 +75,34 @@ def get_shared_frames(main_frame, mqtt_sender):
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, person2_frame):
-    teleop_frame.grid(row=0, column=0)
+    teleop_frame.grid(row=1, column=1)
     arm_frame.grid(row=1, column=0)
-    control_frame.grid(row=2, column=0)
-    drive_frame.grid(row=3, column=0)
-    sound_frame.grid(row=3, column=1)
-    sensor_frame.grid(row=0, column=1)
-    person2_frame.grid(row=0, column=2)
+    control_frame.grid(row=2, column=2)
+    drive_frame.grid(row=2, column=0)
+    sound_frame.grid(row=2, column=1)
+    sensor_frame.grid(row=0, column=0)
+    person2_frame.grid(row=0, column=1)
 
 
 
 
 def my_final_frame(main_frame, mqtt_sender):
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
-    frame.grid(row=0, column = 4)
+    frame.grid(row=0, column = 2)
 
     frame_lable = ttk.Label(frame, text = 'final')
     drag_race_button = ttk.Button(frame, text='drag race')
+    drag_race_speed_entry = ttk.Entry(frame)
+    drag_race_speed_label = ttk.Label(frame, text = 'start speed')
+    drag_race_acceleration_entry = ttk.Entry(frame)
+    drag_race_acceleration_elabel = ttk.Label(frame, text = 'acceleration')
 
     frame_lable.grid(row=0, column=0)
     drag_race_button.grid(row=2, column= 2)
-
-
-
+    drag_race_speed_entry.grid(row=2, column=0)
+    drag_race_speed_label.grid(row=1, column = 0)
+    drag_race_acceleration_entry.grid(row=2, column=1)
+    drag_race_acceleration_elabel.grid(row=1, column=1)
 
     return frame
 
