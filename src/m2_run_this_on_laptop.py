@@ -107,6 +107,7 @@ def my_final_frame(main_frame, mqtt_sender):
     drag_race_button["command"] = lambda: handle_drag_race(mqtt_sender, drag_race_speed_entry, drag_race_acceleration_entry)
 
     return frame
+
 class Delagate(object):
     def __init__(self ,x):
         self.x = x

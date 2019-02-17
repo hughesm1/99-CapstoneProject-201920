@@ -4,7 +4,7 @@ import rosebot
 
 
 
-def drag_race(robot,start_speed, acceration):
+def drag_race(robot,start_speed, acceration,r):
     """ :type robot: rosebot.Rosebot"""
     robot = rosebot.RoseBot() # will be removed for actual code just here to check . method
 
@@ -13,7 +13,7 @@ def drag_race(robot,start_speed, acceration):
         robot.drive_system.go(speed, speed)
         if speed < 100:
             speed = speed + acceration
-        if you_win(robot,speed,curent_fule):
+        if you_win(robot,speed,curent_fule,r):
             break
         if you_loose(robot, speed, curent_fule):
             break
@@ -24,10 +24,11 @@ def drag_race(robot,start_speed, acceration):
     robot.drive_system.stop()
     robot.arm_and_claw.lower_arm()
 
-def you_win(robot, speed, curent_fule):
+def you_win(robot, speed, curent_fule,r):
     win = robot.sensor_system.color_sensor.get_reflected_light_intensity()
     if win > 30:
         print('you win. The amount of fule you have left is', curent_fule)
+        r.send_message('pirnt_GUI')
         robot.drive_system.go(speed, -speed)
         robot.arm_and_claw.raise_arm()
         time.sleep(2)
@@ -54,10 +55,10 @@ def you_crashed(robot):
     return False
 
 def initial_stat_systems(robot,start_speed, acceration):
-    start_fule = 200  # amout of full you start wit
+    start_fule = 500  # amout of full you start with
     speed = start_speed
     for _ in range(3):
         robot.sound_system.beeper.beep().wait()
-    robot.sound_system.tone_maker.play_tone(1000, 1000)
+    robot.sound_system.tone_maker.play_tone(1000, 1000).wait()
     curent_fule = start_fule
     return start_fule,speed,curent_fule
