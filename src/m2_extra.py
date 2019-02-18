@@ -17,7 +17,7 @@ def drag_race(robot,start_speed, acceration,r):
     start_fule, speed, curent_fule = initial_stat_systems(robot, start_speed, acceration)
     while True:
         speed = how_to_move(robot, speed, curent_fule, acceration, r)
-        if you_win(robot,speed,curent_fule, r):
+        if you_win(robot,speed,curent_fule,start_fule, r):
             break
         if you_loose(robot, curent_fule, r):
             break
@@ -28,14 +28,15 @@ def drag_race(robot,start_speed, acceration,r):
     end_code(robot)
 
 """The code to decide if you have crosed the finish line and what happens if you do."""
-def you_win(robot, speed, curent_fule,r):
+def you_win(robot, speed, curent_fule,start_fule,r):
     win = robot.sensor_system.color_sensor.get_reflected_light_intensity()
     if win > 30:
         print('you win. The amount of fule you have left is', curent_fule)
-        r.send_message('pirnt_GUI')
+        #r.send_message('print_GUI')
         robot.drive_system.go(speed, -speed)
         #robot.arm_and_claw.raise_arm()
-        robot.arm_and_claw.move_arm_to_position(curent_fule*10)
+        arm_height = 5112*curent_fule/start_fule
+        robot.arm_and_claw.move_arm_to_position(arm_height)
         time.sleep(2)
         robot.drive_system.stop()
         return True
@@ -45,7 +46,7 @@ def you_win(robot, speed, curent_fule,r):
 def you_loose(robot, curent_fule,r):
     if curent_fule >= 0:
         print('you loose')
-        r.send_message('pirnt_GUI')
+        #r.send_message('print_GUI')
         robot.drive_system.stop()
         robot.sound_system.speech_maker.speak("if you ain't first your last").wait()
         return True
@@ -58,7 +59,7 @@ def you_crashed(robot,r):
         #crash = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         #if crash < 3:
             print('you crashed')
-            r.send_message('pirnt_GUI')
+            #r.send_message('print_GUI')
             robot.drive_system.stop()
             robot.sound_system.speech_maker.speak("you've got to learn to drive with the fear").wait()
             return True
@@ -78,7 +79,7 @@ def initial_stat_systems(robot,start_speed, acceration):
 def how_to_move(robot, speed, acceration,r):
     if speed > 100:
         print('at max speed 100')
-        r.send_message('pirnt_GUI')
+        #r.send_message('print_GUI')
         speed = 100
     robot.drive_system.go(speed, speed)
     if speed < 100:
