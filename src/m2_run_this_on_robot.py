@@ -90,9 +90,10 @@ def run_test_speak_maker():
 
 def real_thing():
     robot=rosebot.RoseBot()
-    r = com.MqttClient(None)
-    r.connect_to_pc()
+    r = None
     delegate = shared_gui_delegate_on_robot.Handler(robot, r)
+    r = com.MqttClient(delegate)
+    r.connect_to_pc()
     delegate.r = r
 
     while True:

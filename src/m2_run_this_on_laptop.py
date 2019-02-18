@@ -22,7 +22,8 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
+    delegate = Delagate()
+    mqtt_sender = com.MqttClient(delegate)
     mqtt_sender.connect_to_ev3()
 
     # -------------------------------------------------------------------------
@@ -111,10 +112,18 @@ def my_final_frame(main_frame, mqtt_sender):
     return frame
 
 class Delagate(object):
-    def __init__(self ,x):
+    def __init__(self ,x = None):
         self.x = x
-    def print_GUI(self):
-        print(self.x)
+    def print_GUI(self,y):
+        print(y)
+    def lose(self):
+        print('you lose')
+    def crash(self):
+        print('you ran into something')
+    def your_time(self):
+        print("you win in seconds it took")
+    def your_fuel(self):
+        print("the amount of fuel you have left is")
 
 def handle_drag_race(mqtt_sender, start_speed, acceleration):
     print('race')
