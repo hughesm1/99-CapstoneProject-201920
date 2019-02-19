@@ -71,9 +71,11 @@ def turn_90(robot, right_left, speed):
     if right_left == 1:
         # left turn #
         robot.drive_system.go(-speed,speed)
+    degrees = 415
     while True:
         print(robot.drive_system.left_motor.get_position())
-        if abs(robot.drive_system.left_motor.get_position()) >= 415:
+        # 415 is 90
+        if abs(robot.drive_system.left_motor.get_position()) >= degrees:
             robot.drive_system.stop()
             break
 

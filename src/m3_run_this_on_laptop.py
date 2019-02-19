@@ -83,8 +83,8 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
 def get_my_frames(main_frame,mqtt_sender):
     led_frame_function(main_frame,mqtt_sender)
     get_with_camera_frame(main_frame, mqtt_sender)
-    # right_90_frame(main_frame, mqtt_sender)
-    start_game_frame(main_frame)
+    right_90_frame(main_frame, mqtt_sender)
+    # start_game_frame(main_frame)
 
 def led_frame_function(main_frame, mqtt_sender):
     led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
@@ -178,7 +178,7 @@ def right_90_frame(main_frame, mqtt_sender):
     l_r_entry_label.grid(row=1, column=1)
 
     frame_button['command'] = lambda: handle_turn_90(mqtt_sender, int(speed_entry.get()),
-                                                     int(l_r_entry.get()), frame_button)
+                                                     int(l_r_entry.get())) #frame_button)
 
     return frame
 
@@ -187,16 +187,16 @@ def start_game_frame(main_frame):
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
     frame.grid(row=2, column=2)
 
-    frame_label = ttk.Label(frame, text='Tik-Tac-Toe')
+    frame_label = ttk.Label(frame, text='Get me a...')
     frame_label.grid(row=0, column=0)
 
-    frame_button = ttk.Button(frame, text='PLAY')
+    frame_button = ttk.Button(frame, text='go')
     frame_button.grid(row=1, column=0)
 
-    frame_button['command'] = lambda: ttt_frame()
+    # frame_button['command'] = lambda:
 
     return frame
-
+'''
 def ttt_frame():
     root2 = tkinter.Tk()
     root2.title("Tic-Tak-Toe")
@@ -265,6 +265,7 @@ def ttt_frame():
 
     x_button['command'] = lambda: handle_x()
     o_button['command'] = lambda: handle_o()
+'''
 
 def handle_ledProx(mqtt_sender, speed, start_time, rate):
     print('ledProx')
@@ -274,11 +275,11 @@ def handle_get_with_camera(mqtt_sender, left_or_right, speed, start_time, rate):
     print('camera with LED')
     mqtt_sender.send_message('go_get_with_camera',[left_or_right, speed, start_time, rate])
 
-def handle_turn_90(mqtt_sender, speed, right_left, button):
+def handle_turn_90(mqtt_sender, speed, right_left): # , button):
     print('turn 90')
     mqtt_sender.send_message('turn_90', [right_left, speed])
-    return button.grid_remove()
-
+    # return button.grid_remove()
+'''
 def handle_button1(button,holder):
     print('button1 function')
     # function here #
@@ -331,7 +332,7 @@ def handle_x():
 def handle_o():
     print("O's turn")
     # function here #
-
+'''
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
