@@ -738,6 +738,7 @@ class Camera(object):
             print("the others are automatically OK in this regard.")
         self.set_signature("SIG1")
 
+
     def set_signature(self, signature_name):
         self.low_level_camera.mode = signature_name
 
