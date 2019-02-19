@@ -12,14 +12,14 @@ import m2_extra
 
 
 class Handler(object):
-    def __init__(self, robot,r):
+    def __init__(self, robot):
         """
 
         :type robot: rosebot.RoseBot
         """
         self.robot = robot
         self.is_time_to_stop = False
-        self.r = r
+        # self.r = r
 
 
     def forward(self, left_wheel_speed, right_wheel_speed):
@@ -243,6 +243,7 @@ class Handler(object):
     def drag_race(self, start_speed, acceleration):
         m2_extra.drag_race(self.robot,int(start_speed),int(acceleration),self.r)
 
-
+    def turn_90(self, right_left, speed):
+        m3_extra.turn_90(self.robot,right_left,speed)
 
 
