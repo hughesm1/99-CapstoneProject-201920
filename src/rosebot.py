@@ -69,6 +69,7 @@ class DriveSystem(object):
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
 
+
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
@@ -737,6 +738,7 @@ class Camera(object):
             print("Note: Only some of the cameras have this option;")
             print("the others are automatically OK in this regard.")
         self.set_signature("SIG1")
+
 
     def set_signature(self, signature_name):
         self.low_level_camera.mode = signature_name
