@@ -97,7 +97,7 @@ def my_final_frame(main_frame, mqtt_sender):
     drag_race_button = ttk.Button(frame, text='drag race')
     drag_race_speed_entry = ttk.Entry(frame)
     drag_race_speed_label = ttk.Label(frame, text = 'start speed')
-    drag_race_acceleration_entry = ttk.Entry(frame)
+    drag_race_acceleration_entry = ttk.Scale(frame, from_=0, to=100)
     drag_race_acceleration_label = ttk.Label(frame, text = 'acceleration')
 
     frame_lable.grid(row=0, column=0)

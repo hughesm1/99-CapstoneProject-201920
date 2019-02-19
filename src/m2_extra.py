@@ -5,7 +5,9 @@ import rosebot
 """The code should have the user put in a start speed and acceleration and using those 
 have the car drive forward until it goes over white, but there is a catch. the catch is that you have a limited amount 
 of full and when you run out of full the car will stop. There are other parts as well such as the car will also stop if 
-it detects a wall in front of it. """
+it detects a wall in front of it. 
+
+sugestions for use is to put the finish line between 28in to 38in away"""
 
 #note the code will not run corectly on a light cullered floor as it will not work with the color sensor.
 
@@ -26,7 +28,7 @@ def drag_race(robot,start_speed, acceration,r):
         if you_crashed(robot, r):
             break
         time.sleep(.5)
-        curent_fule = curent_fule + ((acceration+1)/+1) - speed
+        curent_fule = curent_fule + ((math.sqrt(acceration))/(start_speed+1)) - (speed + start_speed) - acceration
     end_code(robot)
 
 """The code to decide if you have crosed the finish line and what happens if you do."""
@@ -35,7 +37,6 @@ def you_win(robot, speed, curent_fule,start_fule,r, start_time):
     if win > 40:
         print_to_lab(start_time, curent_fule, r)
         robot.drive_system.go(speed, -speed)
-        #robot.arm_and_claw.raise_arm()
         arm_height = 5112*curent_fule/start_fule
         time.sleep(.5)
         robot.drive_system.stop()
@@ -44,6 +45,7 @@ def you_win(robot, speed, curent_fule,start_fule,r, start_time):
         return True
     return False
 
+"""this prints to labtop for win code"""
 def print_to_lab(start_time, curent_fule, r):
     print('time from start is', time.time() - start_time)
     r.send_message('your_time')
@@ -75,14 +77,14 @@ def you_crashed(robot,r):
 
 """These are the initial start values that the robot will be using"""
 def initial_stat_systems(robot,start_speed, acceration):
-    start_fule = 500  # amout of full you start with
+    start_fule = 1000  # amout of full you start with ####################################################################
     if start_speed == 0:
         start_speed = 1
     speed = start_speed
     for _ in range(3):
         robot.sound_system.beeper.beep()
         time.sleep(1)
-    robot.sound_system.tone_maker.play_tone(1000, 500).wait()
+    robot.sound_system.tone_maker.play_tone(500, 500).wait()
     curent_fule = start_fule
     return start_fule,speed,curent_fule
 
