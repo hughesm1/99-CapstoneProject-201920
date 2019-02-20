@@ -250,6 +250,40 @@ class Handler(object):
     def moon_rocks(self, initial_speed):
         m1_extra.moon_rocks(self.robot, int(initial_speed), self.r)
 
+    def go_to_space1(self):
+        m3_extra.button_1_function(self.robot)
+
+    def go_to_space2(self):
+        m3_extra.button_2_function(self.robot)
+
+    def go_to_space3(self):
+        m3_extra.button_3_function(self.robot)
+
+    def go_to_space4(self):
+        m3_extra.button_4_function(self.robot)
+
+    def go_to_space5(self):
+        m3_extra.button_5_function(self.robot)
+
+    def go_to_space6(self):
+        m3_extra.button_6_function(self.robot)
+
+    def go_to_space7(self):
+        m3_extra.button_7_function(self.robot)
+
+    def go_to_space8(self):
+        m3_extra.button_8_function(self.robot)
+
+    def go_to_space9(self):
+        m3_extra.button_9_function(self.robot)
+
+    def x_turn(self):
+        m3_extra.x_turn(self.robot)
+
+    def y_turn(self):
+        m3_extra.y_turn(self.robot)
+
+
 
     # def line_follow(self, intensity, speed):
     #     while True:
