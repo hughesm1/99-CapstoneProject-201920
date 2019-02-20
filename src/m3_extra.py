@@ -64,6 +64,8 @@ def led_loop(robot, left, right, t, a, b, rate, start_time):
 
 
 def turn_90(robot, right_left, speed):
+    print('turn 90')
+    print(right_left)
     robot.drive_system.left_motor.reset_position()
     if right_left == 0:
         # right  turn #
@@ -120,6 +122,23 @@ def go_to_space(robot,space):
             robot.drive_system.stop()
             break
 
+def go_to_space_5(robot,space):
+    n=0
+    while True:
+        n = line_follow(robot, 70, 50, n, space)
+        if n == space:
+            robot.drive_system.stop()
+            turn_90(robot,0,50)
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,3,50)
+            robot.arm_and_claw.lower_arm()
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system, 3, -50)
+            turn_90(robot,1,50)
+            break
+    while True:
+        n = line_follow(robot, 70, 50, n, space)
+        if n == 9:
+            robot.drive_system.stop()
+            break
 
 def go_get_with_camera(robot, left_or_right, speed, start_time, rate):
     area = 500
@@ -142,9 +161,7 @@ def button_4_function(robot):
     go_to_space(robot,3)
 
 def button_5_function(robot):
-    rosebot.DriveSystem.go_straight_for_seconds(robot,3,60)
-    robot.arm_and_claw.lower_arm()
-    rosebot.DriveSystem.go_straight_for_seconds(robot,3,-60)
+    go_to_space_5(robot, 1)
 
 def button_6_function(robot):
     go_to_space(robot,7)
@@ -160,15 +177,16 @@ def button_9_function(robot):
 
 def x_turn(robot):
     turn_90(robot,1,50)
-    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,40)
+    rosebot.DriveSystem.go_forward_until_distance_is_less_than(robot.drive_system,1,40)
     robot.arm_and_claw.raise_arm()
-    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,-40)
+    rosebot.DriveSystem.go_straight_until_color_is(robot.drive_system,'Black',-40)
     turn_90(robot,0,50)
 
 def y_turn(robot):
     turn_90(robot,0,50)
-    rosebot.DriveSystem.go_straight_for_seconds(robot,1,40)
+    rosebot.DriveSystem.go_forward_until_distance_is_less_than(robot.drive_system, 1, 40)
     robot.arm_and_claw.raise_arm()
-    rosebot.DriveSystem.go_straight_for_seconds(robot,1,-40)
+    rosebot.DriveSystem.go_straight_until_color_is(robot.drive_system, 'Black', -40)
+
     turn_90(robot,1,50)
 
