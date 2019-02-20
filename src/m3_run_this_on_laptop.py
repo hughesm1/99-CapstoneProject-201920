@@ -84,7 +84,7 @@ def get_my_frames(main_frame,mqtt_sender):
     led_frame_function(main_frame,mqtt_sender)
     get_with_camera_frame(main_frame, mqtt_sender)
     # right_90_frame(main_frame, mqtt_sender)
-    start_game_frame(main_frame)
+    start_game_frame(main_frame, mqtt_sender)
 
 def led_frame_function(main_frame, mqtt_sender):
     led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
@@ -182,7 +182,7 @@ def right_90_frame(main_frame, mqtt_sender):
 
     return frame
 
-def start_game_frame(main_frame):
+def start_game_frame(main_frame,mqtt_sender):
 
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
     frame.grid(row=2, column=2)
@@ -193,11 +193,11 @@ def start_game_frame(main_frame):
     frame_button = ttk.Button(frame, text='PLAY')
     frame_button.grid(row=1, column=0)
 
-    frame_button['command'] = lambda:ttt_frame()
+    frame_button['command'] = lambda:ttt_frame(mqtt_sender)
 
     return frame
 
-def ttt_frame():
+def ttt_frame(mqtt_sender):
     root2 = tkinter.Tk()
     root2.title("Tic-Tak-Toe")
 
@@ -254,20 +254,20 @@ def ttt_frame():
     play_again_lable.grid(row=5, column=4)
 
     s = Scorer()
-    x_button['command'] = lambda: handle_x(s)
-    o_button['command'] = lambda: handle_o(s)
+    x_button['command'] = lambda: handle_x(mqtt_sender, s)
+    o_button['command'] = lambda: handle_o(mqtt_sender, s)
 
     running_score = [2,2,2,2,2,2,2,2,2]
 
-    button1['command'] = lambda: handle_button1(button1,holder1,s,running_score)
-    button2['command'] = lambda: handle_button2(button2,holder2,s,running_score)
-    button3['command'] = lambda: handle_button3(button3,holder3,s,running_score)
-    button4['command'] = lambda: handle_button4(button4,holder4,s,running_score)
-    button5['command'] = lambda: handle_button5(button5,holder5,s,running_score)
-    button6['command'] = lambda: handle_button6(button6,holder6,s,running_score)
-    button7['command'] = lambda: handle_button7(button7,holder7,s,running_score)
-    button8['command'] = lambda: handle_button8(button8,holder8,s,running_score)
-    button9['command'] = lambda: handle_button9(button9,holder9,s,running_score)
+    button1['command'] = lambda: handle_button1(mqtt_sender,button1,holder1,s,running_score,frame)
+    button2['command'] = lambda: handle_button2(mqtt_sender,button2,holder2,s,running_score,frame)
+    button3['command'] = lambda: handle_button3(mqtt_sender,button3,holder3,s,running_score,frame)
+    button4['command'] = lambda: handle_button4(mqtt_sender,button4,holder4,s,running_score,frame)
+    button5['command'] = lambda: handle_button5(mqtt_sender,button5,holder5,s,running_score,frame)
+    button6['command'] = lambda: handle_button6(mqtt_sender,button6,holder6,s,running_score,frame)
+    button7['command'] = lambda: handle_button7(mqtt_sender,button7,holder7,s,running_score,frame)
+    button8['command'] = lambda: handle_button8(mqtt_sender,button8,holder8,s,running_score,frame)
+    button9['command'] = lambda: handle_button9(mqtt_sender,button9,holder9,s,running_score,frame)
 
     return frame
 
@@ -313,84 +313,118 @@ def handle_turn_90(mqtt_sender, speed, right_left): # , button):
 
 
 
-def handle_button1(button,holder,s,running_score):
+def handle_button1(mqtt_sender,button,holder,s,running_score, frame):
     print('button1 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space1')
     keeping_score(s, 1, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=2, column=0)
 
-def handle_button2(button,holder,s,running_score):
+def handle_button2(mqtt_sender,button,holder,s,running_score, frame):
     print('button2 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space2')
     keeping_score(s, 2, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=2, column=1)
 
-def handle_button3(button,holder,s,running_score):
+def handle_button3(mqtt_sender,button,holder,s,running_score, frame):
     print('button3 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space3')
     keeping_score(s, 3, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=2, column=2)
 
-def handle_button4(button,holder,s,running_score):
+def handle_button4(mqtt_sender,button,holder,s,running_score, frame):
     print('button4 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space4')
     keeping_score(s, 4, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=3, column=0)
 
-def handle_button5(button,holder,s,running_score):
+def handle_button5(mqtt_sender,button,holder,s,running_score, frame):
     print('button5 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space5')
     keeping_score(s, 5, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=3, column=1)
 
-def handle_button6(button,holder,s,running_score):
+def handle_button6(mqtt_sender,button,holder,s,running_score, frame):
     print('button6 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space6')
     keeping_score(s, 6, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=3, column=2)
 
-def handle_button7(button,holder,s,running_score):
+def handle_button7(mqtt_sender,button,holder,s,running_score, frame):
     print('button7 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space7')
     keeping_score(s, 7, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=4, column=0)
 
-def handle_button8(button,holder,s,running_score):
+def handle_button8(mqtt_sender,button,holder,s,running_score, frame):
     print('button8 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space8')
     keeping_score(s, 8, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=4, column=1)
 
-def handle_button9(button,holder,s,running_score):
+def handle_button9(mqtt_sender,button,holder,s,running_score, frame):
     print('button9 function')
-    # function here #
+    mqtt_sender.send_message('go_to_space9')
     keeping_score(s, 9, running_score)
     print(running_score)
+    score_tracker(running_score, frame)
     return button.grid_remove(),holder.grid(row=4, column=2)
 
 
-def handle_x(scorer):
+def handle_x(mqtt_sender, scorer):
     print("X's turn")
     scorer.turn = 0
-    # function here #
-    return 1
-def handle_o(scorer):
+    mqtt_sender.send_message('x_turn')
+
+def handle_o(mqtt_sender, scorer):
     print("O's turn")
     scorer.turn = 1
-    # function here #
-    return 2
-# def score_tracker(w, )
+    mqtt_sender.send_message('y_turn')
 
-
-
+def score_tracker(running_score, frame):
+    win_lable = ttk.Label(frame, text='Winner!')
+    lose_lable =ttk.Label(frame, text='LOSERS')
+    if running_score[0] != 2 and running_score[1] != 2 and running_score[2] != 2:
+        if running_score[0] == running_score[1] and running_score[1] == running_score[2]:
+            win_lable.grid(row=2, column=4)
+    if running_score[3] != 2 and running_score[4] != 2 and running_score[5] != 2:
+        if running_score[3] == running_score[4] and running_score[4] == running_score[5]:
+            win_lable.grid(row=2, column=4)
+    if running_score[6] != 2 and running_score[7] != 2 and running_score[8] != 2:
+        if running_score[6] == running_score[7] and running_score[7] == running_score[8]:
+            win_lable.grid(row=2, column=4)
+    if running_score[0] != 2 and running_score[3] != 2 and running_score[6] != 2:
+        if running_score[0] == running_score[3] and running_score[3] == running_score[6]:
+            win_lable.grid(row=2, column=4)
+    if running_score[1] != 2 and running_score[4] != 2 and running_score[7] != 2:
+        if running_score[1] == running_score[4] and running_score[4] == running_score[7]:
+            win_lable.grid(row=2, column=4)
+    if running_score[2] != 2 and running_score[5] != 2 and running_score[8] != 2:
+        if running_score[2] == running_score[5] and running_score[5] == running_score[8]:
+            win_lable.grid(row=2, column=4)
+    if running_score[0] != 2 and running_score[4] != 2 and running_score[8] != 2:
+        if running_score[0] == running_score[4] and running_score[4] == running_score[8]:
+            win_lable.grid(row=2, column=4)
+    if running_score[6] != 2 and running_score[4] != 2 and running_score[2] != 2:
+        if running_score[6] == running_score[4] and running_score[4] == running_score[2]:
+            win_lable.grid(row=2, column=4)
+    if running_score[0] != 2 and running_score[1] != 2 and running_score[2] != 2 and running_score[3] != 2 and running_score[4] != 2 and running_score[5] != 2 and running_score[6] != 2 and running_score[7] != 2 and running_score[8] != 2:
+        lose_lable.grid(row=2, column=4)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

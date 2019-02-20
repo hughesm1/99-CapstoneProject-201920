@@ -80,34 +80,42 @@ def turn_90(robot, right_left, speed):
             break
 
 
-def line_follow(robot, intensity, speed):
+def line_follow(robot, intensity, speed, n, space):
+    t = 0.4
+    n = n
     while True:
         robot.drive_system.go(int(speed), int(speed))
         if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
             robot.drive_system.go(-int(speed), int(speed))
-            time.sleep(0.2)
+            time.sleep(t)
+            t += 0.2
         if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
             robot.drive_system.go(int(speed), -int(speed))
-            time.sleep(0.2)
+            time.sleep(t)
+            t += 0.2
+        if int(intensity) >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            t=0.4
+        if robot.sensor_system.color_sensor.get_color() == 5:
+            n+=1
+        if n == space:
+            return n
+        if n == 9:
+            return n
 
 def go_to_space(robot,space):
     n=0
-    line_follow(robot,70,50)
     while True:
-        if robot.sensor_system.color_sensor.get_color() == 3:
-            n+=1
-        if n==space:
+        n = line_follow(robot, 70, 50, n, space)
+        if n == space:
             robot.drive_system.stop()
             turn_90(robot,0,50)
             rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,50)
-            robot.ArmAndClaw.lower_arm()
+            robot.arm_and_claw.lower_arm()
             rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system, 1, -50)
             turn_90(robot,1,50)
             break
-    line_follow(robot,70,50)
     while True:
-        if robot.sensor_system.color_sensor.get_color() == 3:
-            n += 1
+        n = line_follow(robot, 70, 50, n, space)
         if n == 9:
             robot.drive_system.stop()
             break
@@ -120,3 +128,47 @@ def go_get_with_camera(robot, left_or_right, speed, start_time, rate):
     if left_or_right == 1:
         robot.drive_system.spin_clockwise_until_sees_object(speed, area)
     ledProx(robot, speed, start_time, rate)
+
+def button_1_function(robot):
+    go_to_space(robot,4)
+
+def button_2_function(robot):
+    go_to_space(robot,5)
+
+def button_3_function(robot):
+    go_to_space(robot,6)
+
+def button_4_function(robot):
+    go_to_space(robot,3)
+
+def button_5_function(robot):
+    rosebot.DriveSystem.go_straight_for_seconds(robot,3,60)
+    robot.arm_and_claw.lower_arm()
+    rosebot.DriveSystem.go_straight_for_seconds(robot,3,-60)
+
+def button_6_function(robot):
+    go_to_space(robot,7)
+
+def button_7_function(robot):
+    go_to_space(robot,1)
+
+def button_8_function(robot):
+    go_to_space(robot,2)
+
+def button_9_function(robot):
+    go_to_space(robot,8)
+
+def x_turn(robot):
+    turn_90(robot,1,50)
+    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,40)
+    robot.arm_and_claw.raise_arm()
+    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,-40)
+    turn_90(robot,0,50)
+
+def y_turn(robot):
+    turn_90(robot,0,50)
+    rosebot.DriveSystem.go_straight_for_seconds(robot,1,40)
+    robot.arm_and_claw.raise_arm()
+    rosebot.DriveSystem.go_straight_for_seconds(robot,1,-40)
+    turn_90(robot,1,50)
+
