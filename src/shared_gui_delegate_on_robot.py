@@ -12,14 +12,14 @@ import m2_extra
 
 
 class Handler(object):
-    def __init__(self, robot):
+    def __init__(self, robot, r):
         """
 
         :type robot: rosebot.RoseBot
         """
         self.robot = robot
         self.is_time_to_stop = False
-        # self.r = r
+        self.r = r
 
 
     def forward(self, left_wheel_speed, right_wheel_speed):
