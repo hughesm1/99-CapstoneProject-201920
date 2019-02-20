@@ -99,8 +99,11 @@ def final_frame(main_frame, mqtt_sender):
     # frame_label = ttk.Label(frame, text='Final project')
     moon_rocks_button = ttk.Button(frame, text='Find Moon Rocks')
     initial_speed_scale = ttk.Scale(frame, from_=0, to=100)
-    initial_speed_label1 = ttk.Label(frame, text=initial_speed_scale.get())
+    how_many_rocks_label = ttk.Label(frame, text='how many rocks would you like to pick up')
     initial_speed_label = ttk.Label(frame, text='start speed')
+    how_many_rocks_entry = ttk.Entry(frame)
+    # scale_speed_label = ttk.Label(frame, text=str(label))
+
     # option1_radio = ttk.Radiobutton(frame, text='go 10 inches before looking for rocks', variable=v, value=1)
     # option2_radio = ttk.Radiobutton(frame, text='go 20 inches before looking for rocks', variable=v, value=2)
     # drag_race_acceleration_entry = ttk.Scale(frame, from_=0, to=100)
@@ -108,15 +111,17 @@ def final_frame(main_frame, mqtt_sender):
 
     # frame_label.grid(row=0, column=0)
     moon_rocks_button.grid(row=3, column= 2)
-    initial_speed_label1.grid(row=3, column=0)
-    initial_speed_label.grid(row=2, column = 0)
-    initial_speed_scale.grid(row=1, column=0)
+    how_many_rocks_label.grid(row=3, column=0)
+    initial_speed_label.grid(row=1, column = 0)
+    initial_speed_scale.grid(row=2, column=0)
+    how_many_rocks_entry.grid(row=4, column=0)
+    # scale_speed_label.grid(row=2, column=1)
     # option1_radio.grid(row=1, column=0)
     # option2_radio.grid(row=1, column=1)
     # drag_race_acceleration_entry.grid(row=2, column=1)
     # drag_race_acceleration_label.grid(row=1, column=1)
 
-    moon_rocks_button["command"] = lambda: handle_moon_rocks(mqtt_sender, initial_speed_scale)
+    moon_rocks_button["command"] = lambda: handle_moon_rocks(mqtt_sender, initial_speed_scale, how_many_rocks_entry)
 
     return frame
 class Delegate(object):
@@ -130,9 +135,9 @@ class Delegate(object):
     def num_of_rocks(self):
         print("the number of rocks you collected is")
 
-def handle_moon_rocks(mqtt_sender, initial_speed):
-    print('lets do it', initial_speed.get())
-    mqtt_sender.send_message('moon_rocks', [initial_speed.get()])
+def handle_moon_rocks(mqtt_sender, initial_speed, how_many_rocks):
+    print('lets do it', initial_speed.get(), how_many_rocks.get())
+    mqtt_sender.send_message('moon_rocks', [initial_speed.get(), how_many_rocks.get()])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

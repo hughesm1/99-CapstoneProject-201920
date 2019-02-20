@@ -247,8 +247,8 @@ class Handler(object):
     def turn_90(self, right_left, speed):
         m3_extra.turn_90(self.robot,right_left,speed)
 
-    def moon_rocks(self, initial_speed):
-        m1_extra.moon_rocks(self.robot, int(initial_speed), self.r)
+    def moon_rocks(self, initial_speed, how_many_rocks):
+        m1_extra.moon_rocks(self.robot, int(initial_speed), int(how_many_rocks), self.r)
 
     def go_to_space1(self):
         m3_extra.button_1_function(self.robot)
