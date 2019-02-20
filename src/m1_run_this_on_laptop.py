@@ -124,12 +124,9 @@ class Delegate(object):
         self.x = x
     def print_GUI(self,y):
         print(y)
-    # def lose(self):
-    #     print('you lose')
-    # def crash(self):
-    #     print('you ran into something')
+
     def the_time(self):
-        print("you win in this many seconds")
+        print("its over in this many seconds")
     def num_of_rocks(self):
         print("the number of rocks you collected is")
 

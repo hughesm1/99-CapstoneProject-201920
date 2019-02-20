@@ -5,10 +5,16 @@ import math
 def moon_rocks(robot, initial_speed, r):
     speed = initial_start_systems(robot, initial_speed)
     start_time = time.time()
-    move_stuff(robot, speed, start_time, r)
-    get_to_rock(robot, speed, r)
-    pick_up_rock(robot, r)
-    get_back_to_line(robot, speed, r)
+    count = 0
+    while True:
+        move_stuff(robot, speed, start_time, r)
+        get_to_rock(robot, speed, r)
+        pick_up_rock(robot, r)
+        count = count + 1
+        get_back_to_line(robot, speed, r)
+        if count >= 3:
+            print_to_laptop(count, start_time, r)
+            break
 
 # def how_many():
 
@@ -21,16 +27,12 @@ def print_to_laptop(num, start_time, r):
     r.send_message('print_GUI', [num])
 
 def initial_start_systems(robot,initial_speed):
-    # start_fule = 1000  # amout of full you start with ####################################################################
-    # if start_speed == 0:
-    #     start_speed = 1
     speed = initial_speed
-    for _ in range(3):
-        robot.sound_system.beeper.beep()
-        time.sleep(1)
-    robot.sound_system.tone_maker.play_tone(500, 500).wait()
+    # for _ in range(3):
+    #     robot.sound_system.beeper.beep()
+    #     time.sleep(1)
+    # robot.sound_system.tone_maker.play_tone(500, 500).wait()
     robot.sound_system.speech_maker.speak("Lets get ready to rumble").wait()
-    # curent_fule = start_fule
     return speed
 
 def move_stuff(robot, speed, start_time, r):
@@ -44,7 +46,7 @@ def move_stuff(robot, speed, start_time, r):
             robot.drive_system.go(int(speed, -int(speed)))
             time.sleep(.2)
 
-        if start_time >= 10:
+        if time.time() - start_time >= 10:
             robot.drive_system.stop()
             break
 
