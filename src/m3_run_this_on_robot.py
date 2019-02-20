@@ -34,8 +34,8 @@ def main():
     #run_test_speak_maker()
 
     # run_test_pick_up_with_led()
-    test_run()
-    # real_thing()
+    # test_run()
+    real_thing()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()

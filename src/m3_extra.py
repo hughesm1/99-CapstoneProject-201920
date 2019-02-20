@@ -160,9 +160,9 @@ def button_9_function(robot):
 
 def x_turn(robot):
     turn_90(robot,1,50)
-    rosebot.DriveSystem.go_straight_for_seconds(robot,1,40)
+    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,40)
     robot.arm_and_claw.raise_arm()
-    rosebot.DriveSystem.go_straight_for_seconds(robot,1,-40)
+    rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,-40)
     turn_90(robot,0,50)
 
 def y_turn(robot):
