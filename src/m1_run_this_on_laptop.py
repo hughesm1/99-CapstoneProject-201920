@@ -22,7 +22,8 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
+    recieve = Delegate()
+    mqtt_sender = com.MqttClient(recieve)
     mqtt_sender.connect_to_ev3()
 
 

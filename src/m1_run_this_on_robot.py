@@ -119,8 +119,8 @@ def real_thing():
     r = None
     delegate = shared_gui_delegate_on_robot.Handler(robot, r)
     r = com.MqttClient(delegate)
-    r.connect_to_pc()
     delegate.r = r
+    r.connect_to_pc()
 
     while True:
         time.sleep(.01)

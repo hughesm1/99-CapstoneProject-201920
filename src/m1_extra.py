@@ -51,25 +51,39 @@ def move_stuff(robot, speed, start_time, r):
     t = .4
     while True:
         robot.drive_system.go(int(speed), int(speed))
-        line_follow(robot, speed, t)
-        t += .2
+        # line_follow(robot, speed, t)
+        if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
+            robot.drive_system.go(-int(speed), int(speed))
+            time.sleep(t)
+            t += .2
+        if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
+            robot.drive_system.go(int(speed), -int(speed))
+            time.sleep(t)
+            t += .2
+        if 70 >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            t = .4
+        # t += .2
         if int(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) <= 1:
             robot.drive_system.stop()
             break
 
-        # if time.time() - start_time >= 100:
-        #     robot.drive_system.stop()
-        #     print('it stopped')
-        #     break
+        if time.time() - start_time >= 100:
+            robot.drive_system.stop()
+            print('it stopped')
+            break
 
 
 """This function should follow a black line constantly"""
 def line_follow(robot, speed, t):
     if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+        print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         robot.drive_system.go(-int(speed), int(speed))
         time.sleep(t)
         t += .2
     if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+        print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         robot.drive_system.go(int(speed), -int(speed))
         time.sleep(t)
         t += .2
