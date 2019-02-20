@@ -37,22 +37,27 @@ def initial_start_systems(robot,initial_speed):
 
 def move_stuff(robot, speed, start_time, r):
     # robot.drive_system.go(speed, speed)
+    t = .4
     while True:
         robot.drive_system.go(int(speed), int(speed))
         if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
             robot.drive_system.go(-int(speed), int(speed))
-            time.sleep(.2)
+            time.sleep(t)
+            t += .2
         if 70 <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
-            robot.drive_system.go(int(speed, -int(speed)))
-            time.sleep(.2)
+            robot.drive_system.go(int(speed), -int(speed))
+            time.sleep(t)
+            t += .2
+        if 70 >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            t = 0.4
 
         if time.time() - start_time >= 10:
             robot.drive_system.stop()
             break
 
 def get_to_rock(robot, speed, r):
-    robot.drive_system.spin_clockwise_until_sees_object(speed, 3)
-    robot.drive_system.go_forward_until_distance_is_less_than(3, speed)
+    robot.drive_system.spin_clockwise_until_sees_object(speed, 12)
+    robot.drive_system.go_forward_until_distance_is_less_than(1, speed)
 
 def pick_up_rock(robot, r):
     robot.arm_and_claw.raise_arm()

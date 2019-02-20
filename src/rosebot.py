@@ -275,7 +275,7 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-        self.go(int(speed),int(-speed))
+        self.go(int(speed),-int(speed))
         while True:
             blob = self.sensor_system.camera.get_biggest_blob()
             bolb_h=blob.height

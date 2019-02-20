@@ -21,6 +21,7 @@ def main():
     # run_test_not_color()
     # run_test_color_intense_greater()
     # run_test_color_intense_less()
+    run_test_lower_arm()
     real_thing()
 
 def run_test_arm_raise():
