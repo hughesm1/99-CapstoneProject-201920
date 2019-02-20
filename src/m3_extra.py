@@ -80,6 +80,37 @@ def turn_90(robot, right_left, speed):
             break
 
 
+def line_follow(robot, intensity, speed):
+    while True:
+        robot.drive_system.go(int(speed), int(speed))
+        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            robot.drive_system.go(-int(speed), int(speed))
+            time.sleep(0.2)
+        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            robot.drive_system.go(int(speed), -int(speed))
+            time.sleep(0.2)
+
+def go_to_space(robot,space):
+    n=0
+    line_follow(robot,70,50)
+    while True:
+        if robot.sensor_system.color_sensor.get_color() == 3:
+            n+=1
+        if n==space:
+            robot.drive_system.stop()
+            turn_90(robot,0,50)
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,1,50)
+            robot.ArmAndClaw.lower_arm()
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system, 1, -50)
+            turn_90(robot,1,50)
+            break
+    line_follow(robot,70,50)
+    while True:
+        if robot.sensor_system.color_sensor.get_color() == 3:
+            n += 1
+        if n == 9:
+            robot.drive_system.stop()
+            break
 
 
 def go_get_with_camera(robot, left_or_right, speed, start_time, rate):

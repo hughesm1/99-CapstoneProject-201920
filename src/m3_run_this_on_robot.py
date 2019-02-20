@@ -10,6 +10,7 @@ import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
 import math
+import m3_extra as me
 
 def main():
     """
@@ -33,8 +34,8 @@ def main():
     #run_test_speak_maker()
 
     # run_test_pick_up_with_led()
-
-    real_thing()
+    test_run()
+    # real_thing()
 
 def run_test_arm_raise():
     robot=rosebot.RoseBot()
@@ -90,15 +91,23 @@ def run_test_speak_maker():
     robot=rosebot.SpeechMaker()
     robot.speak("don't make me sing")
 
+def test_line():
+    line_follow(70,50)
+
+def test_run():
+    robot = rosebot.RoseBot()
+    me.go_to_space(robot, 3)
 
 
 
 
 def real_thing():
     robot=rosebot.RoseBot()
-    delegate = shared_gui_delegate_on_robot.Handler(robot)
-    mqtt_receiver = com.MqttClient(delegate)
-    mqtt_receiver.connect_to_pc()
+    r = None
+    delegate = shared_gui_delegate_on_robot.Handler(robot,r)
+    r = com.MqttClient(delegate)
+    r.connect_to_pc()
+    delegate.r = r
 
     while True:
         time.sleep(0.01)
@@ -106,6 +115,21 @@ def real_thing():
             break
 
 
+def line_follow( intensity, speed):
+    robot = rosebot.RoseBot()
+    t=.4
+    while True:
+        robot.drive_system.go(int(speed), int(speed))
+        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            robot.drive_system.go(-int(speed), int(speed))
+            time.sleep(t)
+            t+=.2
+        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            robot.drive_system.go(int(speed), -int(speed))
+            time.sleep(t)
+            t+=.2
+        if int(intensity) >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
+            t=0.4
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

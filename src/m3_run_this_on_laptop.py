@@ -83,8 +83,8 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
 def get_my_frames(main_frame,mqtt_sender):
     led_frame_function(main_frame,mqtt_sender)
     get_with_camera_frame(main_frame, mqtt_sender)
-    right_90_frame(main_frame, mqtt_sender)
-    # start_game_frame(main_frame)
+    # right_90_frame(main_frame, mqtt_sender)
+    start_game_frame(main_frame)
 
 def led_frame_function(main_frame, mqtt_sender):
     led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
@@ -187,16 +187,16 @@ def start_game_frame(main_frame):
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
     frame.grid(row=2, column=2)
 
-    frame_label = ttk.Label(frame, text='Get me a...')
+    frame_label = ttk.Label(frame, text='Tic-Tac-Toe')
     frame_label.grid(row=0, column=0)
 
-    frame_button = ttk.Button(frame, text='go')
+    frame_button = ttk.Button(frame, text='PLAY')
     frame_button.grid(row=1, column=0)
 
-    # frame_button['command'] = lambda:
+    frame_button['command'] = lambda:ttt_frame()
 
     return frame
-'''
+
 def ttt_frame():
     root2 = tkinter.Tk()
     root2.title("Tic-Tak-Toe")
@@ -253,19 +253,45 @@ def ttt_frame():
     play_again_lable = ttk.Label(frame, text="To restart or play again, close the window and click 'PLAY' again")
     play_again_lable.grid(row=5, column=4)
 
-    button1['command'] = lambda: handle_button1(button1,holder1)
-    button2['command'] = lambda: handle_button2(button2,holder2)
-    button3['command'] = lambda: handle_button3(button3,holder3)
-    button4['command'] = lambda: handle_button4(button4,holder4)
-    button5['command'] = lambda: handle_button5(button5,holder5)
-    button6['command'] = lambda: handle_button6(button6,holder6)
-    button7['command'] = lambda: handle_button7(button7,holder7)
-    button8['command'] = lambda: handle_button8(button8,holder8)
-    button9['command'] = lambda: handle_button9(button9,holder9)
+    s = Scorer()
+    x_button['command'] = lambda: handle_x(s)
+    o_button['command'] = lambda: handle_o(s)
 
-    x_button['command'] = lambda: handle_x()
-    o_button['command'] = lambda: handle_o()
-'''
+    running_score = [2,2,2,2,2,2,2,2,2]
+
+    button1['command'] = lambda: handle_button1(button1,holder1,s,running_score)
+    button2['command'] = lambda: handle_button2(button2,holder2,s,running_score)
+    button3['command'] = lambda: handle_button3(button3,holder3,s,running_score)
+    button4['command'] = lambda: handle_button4(button4,holder4,s,running_score)
+    button5['command'] = lambda: handle_button5(button5,holder5,s,running_score)
+    button6['command'] = lambda: handle_button6(button6,holder6,s,running_score)
+    button7['command'] = lambda: handle_button7(button7,holder7,s,running_score)
+    button8['command'] = lambda: handle_button8(button8,holder8,s,running_score)
+    button9['command'] = lambda: handle_button9(button9,holder9,s,running_score)
+
+    return frame
+
+class Scorer(object):
+    def __init__(self):
+        self.turn = 0
+
+def keeping_score( Scorer, button, seq):
+    seq = seq
+    seq[button-1] = Scorer.turn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def handle_ledProx(mqtt_sender, speed, start_time, rate):
     print('ledProx')
@@ -279,60 +305,93 @@ def handle_turn_90(mqtt_sender, speed, right_left): # , button):
     print('turn 90')
     mqtt_sender.send_message('turn_90', [right_left, speed])
     # return button.grid_remove()
-'''
-def handle_button1(button,holder):
+
+
+
+
+
+
+
+
+def handle_button1(button,holder,s,running_score):
     print('button1 function')
     # function here #
+    keeping_score(s, 1, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=2, column=0)
 
-def handle_button2(button,holder):
+def handle_button2(button,holder,s,running_score):
     print('button2 function')
     # function here #
+    keeping_score(s, 2, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=2, column=1)
 
-def handle_button3(button,holder):
+def handle_button3(button,holder,s,running_score):
     print('button3 function')
     # function here #
+    keeping_score(s, 3, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=2, column=2)
 
-def handle_button4(button,holder):
+def handle_button4(button,holder,s,running_score):
     print('button4 function')
     # function here #
+    keeping_score(s, 4, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=3, column=0)
 
-def handle_button5(button,holder):
+def handle_button5(button,holder,s,running_score):
     print('button5 function')
     # function here #
+    keeping_score(s, 5, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=3, column=1)
 
-def handle_button6(button,holder):
+def handle_button6(button,holder,s,running_score):
     print('button6 function')
     # function here #
+    keeping_score(s, 6, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=3, column=2)
 
-def handle_button7(button,holder):
+def handle_button7(button,holder,s,running_score):
     print('button7 function')
     # function here #
+    keeping_score(s, 7, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=4, column=0)
 
-def handle_button8(button,holder):
+def handle_button8(button,holder,s,running_score):
     print('button8 function')
     # function here #
+    keeping_score(s, 8, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=4, column=1)
 
-def handle_button9(button,holder):
+def handle_button9(button,holder,s,running_score):
     print('button9 function')
     # function here #
+    keeping_score(s, 9, running_score)
+    print(running_score)
     return button.grid_remove(),holder.grid(row=4, column=2)
 
-def handle_x():
-    print("X's turn")
-    # function here #
 
-def handle_o():
-    print("O's turn")
+def handle_x(scorer):
+    print("X's turn")
+    scorer.turn = 0
     # function here #
-'''
+    return 1
+def handle_o(scorer):
+    print("O's turn")
+    scorer.turn = 1
+    # function here #
+    return 2
+# def score_tracker(w, )
+
+
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
