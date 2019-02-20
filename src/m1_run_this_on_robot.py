@@ -113,9 +113,11 @@ def my_stuff():
 
 def real_thing():
     robot = rosebot.RoseBot()
-    delegate = shared_gui_delegate_on_robot.Handler(robot)
-    mqtt_reciever = com.MqttClient(delegate)
-    mqtt_reciever.connect_to_pc()
+    r = None
+    delegate = shared_gui_delegate_on_robot.Handler(robot, r)
+    r = com.MqttClient(delegate)
+    r.connect_to_pc()
+    delegate.r = r
 
     while True:
         time.sleep(.01)

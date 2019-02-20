@@ -91,6 +91,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     line_follow_frame.grid(row=0, column=6)
 
 
+class Delegate(object):
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
