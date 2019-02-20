@@ -84,7 +84,6 @@ def turn_90(robot, right_left, speed):
 
 def line_follow(robot, intensity, speed, n, space):
     t = 0.4
-    n = n
     while True:
         robot.drive_system.go(int(speed), int(speed))
         if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
@@ -98,6 +97,9 @@ def line_follow(robot, intensity, speed, n, space):
         if int(intensity) >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
             t=0.4
         if robot.sensor_system.color_sensor.get_color() == 5:
+            while True:
+                if robot.sensor_system.color_sensor.get_color() != 5:
+                    break
             n+=1
         if n == space:
             return n
