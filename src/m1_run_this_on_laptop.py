@@ -30,7 +30,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title('CSSE 120 Capstone Project 2018-19')
+    root.title("Marcus Hughes-Oliver's final project")
 
 
     # -------------------------------------------------------------------------
@@ -42,26 +42,27 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame\
-        = get_shared_frames(main_frame, mqtt_sender)
+    # teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, sensor_frame, beep_proximity_frame\
+    #     = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
     # line follow
-    line_follow_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
-    line_follow_frame.grid()
-    frame_label = ttk.Label(line_follow_frame, text="Line Follow")
-    beep_button = ttk.Button(line_follow_frame, text="Line Follow")
-    frame_label.grid(row=0, column=0)
-    beep_button.grid(row=1, column=1)
+    # line_follow_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    # line_follow_frame.grid()
+    # frame_label = ttk.Label(line_follow_frame, text="Line Follow")
+    # beep_button = ttk.Button(line_follow_frame, text="Line Follow")
+    # frame_label.grid(row=0, column=0)
+    # beep_button.grid(row=1, column=1)
+    final_frame(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame,
-                sound_frame, sensor_frame, beep_proximity_frame, line_follow_frame)
+    # grid_frames(teleop_frame, arm_frame, control_frame, drive_frame,
+    #             sound_frame, sensor_frame, beep_proximity_frame, line_follow_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -90,8 +91,51 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     beep_proximity_frame.grid(row=0, column=5)
     line_follow_frame.grid(row=0, column=6)
 
+def final_frame(main_frame, mqtt_sender):
+    frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
+    frame.grid(row=0, column = 2)
+    v = tkinter.IntVar()
 
+    # frame_label = ttk.Label(frame, text='Final project')
+    moon_rocks_button = ttk.Button(frame, text='Find Moon Rocks')
+    initial_speed_scale = ttk.Scale(frame, from_=0, to=100)
+    initial_speed_label1 = ttk.Label(frame, text=initial_speed_scale.get())
+    initial_speed_label = ttk.Label(frame, text='start speed')
+    # option1_radio = ttk.Radiobutton(frame, text='go 10 inches before looking for rocks', variable=v, value=1)
+    # option2_radio = ttk.Radiobutton(frame, text='go 20 inches before looking for rocks', variable=v, value=2)
+    # drag_race_acceleration_entry = ttk.Scale(frame, from_=0, to=100)
+    # drag_race_acceleration_label = ttk.Label(frame, text = 'acceleration')
+
+    # frame_label.grid(row=0, column=0)
+    moon_rocks_button.grid(row=3, column= 2)
+    initial_speed_label1.grid(row=3, column=0)
+    initial_speed_label.grid(row=2, column = 0)
+    initial_speed_scale.grid(row=1, column=0)
+    # option1_radio.grid(row=1, column=0)
+    # option2_radio.grid(row=1, column=1)
+    # drag_race_acceleration_entry.grid(row=2, column=1)
+    # drag_race_acceleration_label.grid(row=1, column=1)
+
+    moon_rocks_button["command"] = lambda: handle_moon_rocks(mqtt_sender, initial_speed_scale)
+
+    return frame
 class Delegate(object):
+    def __init__(self ,x = None):
+        self.x = x
+    def print_GUI(self,y):
+        print(y)
+    # def lose(self):
+    #     print('you lose')
+    # def crash(self):
+    #     print('you ran into something')
+    def the_time(self):
+        print("you win in this many seconds")
+    def num_of_rocks(self):
+        print("the number of rocks you collected is")
+
+def handle_moon_rocks(mqtt_sender, initial_speed):
+    print('lets do it', initial_speed.get())
+    mqtt_sender.send_message('moon_rocks', [initial_speed.get()])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

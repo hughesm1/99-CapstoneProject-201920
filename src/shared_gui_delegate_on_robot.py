@@ -9,6 +9,7 @@
 import time
 import m3_extra
 import m2_extra
+import m1_extra
 
 
 class Handler(object):
@@ -245,5 +246,18 @@ class Handler(object):
 
     def turn_90(self, right_left, speed):
         m3_extra.turn_90(self.robot,right_left,speed)
+
+    def moon_rocks(self, initial_speed):
+        m1_extra.moon_rocks(self.robot, int(initial_speed), self.r)
+
+
+    def line_follow(self, intensity, speed):
+        while True:
+            self.robot.drive_system.go(int(speed), int(speed))
+            if int(intensity) >= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.robot.drive_system.go(-int(speed), int(speed))
+            if int(intensity) >= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
+                self.robot.drive_system.go(int(speed, -int(speed)))
+
 
 
