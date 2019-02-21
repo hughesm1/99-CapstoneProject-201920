@@ -86,6 +86,7 @@ def get_my_frames(main_frame,mqtt_sender):
     # right_90_frame(main_frame, mqtt_sender)
     start_game_frame(main_frame, mqtt_sender)
 
+
 def led_frame_function(main_frame, mqtt_sender):
     led_frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
     led_frame.grid(row=2,column=1)
@@ -156,6 +157,12 @@ def get_with_camera_frame(main_frame, mqtt_sender):
     return frame
 
 
+'''
+
+used only when testing the turn_90 function
+
+'''
+
 def right_90_frame(main_frame, mqtt_sender):
 
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
@@ -182,6 +189,13 @@ def right_90_frame(main_frame, mqtt_sender):
 
     return frame
 
+
+'''
+
+used to start the tic-tac-toe game from the shared gui
+
+'''
+
 def start_game_frame(main_frame,mqtt_sender):
 
     frame = ttk.Frame(main_frame, padding=2, borderwidth=5, relief="ridge")
@@ -196,6 +210,13 @@ def start_game_frame(main_frame,mqtt_sender):
     frame_button['command'] = lambda:ttt_frame(mqtt_sender)
 
     return frame
+
+
+'''
+
+creates the Tic-Tac_Toe frame
+
+'''
 
 def ttt_frame(mqtt_sender):
     root2 = tkinter.Tk()
@@ -259,6 +280,7 @@ def ttt_frame(mqtt_sender):
 
     running_score = [2,2,2,2,2,2,2,2,2]
 
+
     button1['command'] = lambda: handle_button1(mqtt_sender,button1,holder1,s,running_score,frame)
     button2['command'] = lambda: handle_button2(mqtt_sender,button2,holder2,s,running_score,frame)
     button3['command'] = lambda: handle_button3(mqtt_sender,button3,holder3,s,running_score,frame)
@@ -270,6 +292,14 @@ def ttt_frame(mqtt_sender):
     button9['command'] = lambda: handle_button9(mqtt_sender,button9,holder9,s,running_score,frame)
 
     return frame
+
+
+'''
+
+this took 2 hours to figure out how to keep scored of o's moves and x's moves, so its a class that I use to hold a 
+variable that is changed in the x_turn and y_turn and then used in the scorer function.
+
+'''
 
 class Scorer(object):
     def __init__(self):
@@ -310,7 +340,11 @@ def handle_turn_90(mqtt_sender, speed, right_left): # , button):
 
 
 
+'''
 
+the handle_buttonX and handle_X functions are the lambda functions associated for each button
+
+'''
 
 
 def handle_button1(mqtt_sender,button,holder,s,running_score, frame):
@@ -396,35 +430,88 @@ def handle_o(mqtt_sender, scorer):
     scorer.turn = 1
     mqtt_sender.send_message('y_turn')
 
+'''
+
+score_tracker checks each time a move is played if a winning combination is on the board
+
+'''
+
 def score_tracker(running_score, frame):
     win_lable = ttk.Label(frame, text='Winner!')
     lose_lable =ttk.Label(frame, text='LOSERS')
+    win_if1(win_lable, running_score)
+    win_if2(win_lable, running_score)
+    win_if3(win_lable, running_score)
+    win_if4(win_lable, running_score)
+    win_if5(win_lable, running_score)
+    win_if6(win_lable, running_score)
+    win_if7(win_lable, running_score)
+    win_if8(win_lable, running_score)
+    lose_if(lose_lable, running_score)
+
+
+'''
+
+
+the win_ifX and lose_if functions are the if statements the scorer checks each time a play is made.
+
+'''
+
+
+def win_if1(win_lable, running_score):
     if running_score[0] != 2 and running_score[1] != 2 and running_score[2] != 2:
         if running_score[0] == running_score[1] and running_score[1] == running_score[2]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if2(win_lable, running_score):
     if running_score[3] != 2 and running_score[4] != 2 and running_score[5] != 2:
         if running_score[3] == running_score[4] and running_score[4] == running_score[5]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if3(win_lable, running_score):
     if running_score[6] != 2 and running_score[7] != 2 and running_score[8] != 2:
         if running_score[6] == running_score[7] and running_score[7] == running_score[8]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if4(win_lable, running_score):
     if running_score[0] != 2 and running_score[3] != 2 and running_score[6] != 2:
         if running_score[0] == running_score[3] and running_score[3] == running_score[6]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if5(win_lable, running_score):
     if running_score[1] != 2 and running_score[4] != 2 and running_score[7] != 2:
         if running_score[1] == running_score[4] and running_score[4] == running_score[7]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if6(win_lable, running_score):
     if running_score[2] != 2 and running_score[5] != 2 and running_score[8] != 2:
         if running_score[2] == running_score[5] and running_score[5] == running_score[8]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if7(win_lable, running_score):
     if running_score[0] != 2 and running_score[4] != 2 and running_score[8] != 2:
         if running_score[0] == running_score[4] and running_score[4] == running_score[8]:
             win_lable.grid(row=2, column=4)
+
+
+def win_if8(win_lable, running_score):
     if running_score[6] != 2 and running_score[4] != 2 and running_score[2] != 2:
         if running_score[6] == running_score[4] and running_score[4] == running_score[2]:
             win_lable.grid(row=2, column=4)
-    if running_score[0] != 2 and running_score[1] != 2 and running_score[2] != 2 and running_score[3] != 2 and running_score[4] != 2 and running_score[5] != 2 and running_score[6] != 2 and running_score[7] != 2 and running_score[8] != 2:
+
+
+def lose_if(lose_lable, running_score):
+    if running_score[0] != 2 and running_score[1] != 2 and running_score[2] != 2 and running_score[3] != 2 and \
+            running_score[4] != 2 and running_score[5] != 2 and running_score[6] != 2 and running_score[7] != 2 and \
+            running_score[8] != 2:
         lose_lable.grid(row=2, column=4)
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

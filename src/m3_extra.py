@@ -63,6 +63,12 @@ def led_loop(robot, left, right, t, a, b, rate, start_time):
             b = 1
 
 
+'''
+
+Trun_90 is to turn the either clockwise or counter-clockwise.
+
+'''
+
 def turn_90(robot, right_left, speed):
     print('turn 90')
     print(right_left)
@@ -81,6 +87,12 @@ def turn_90(robot, right_left, speed):
             robot.drive_system.stop()
             break
 
+
+'''
+
+line_follow follows a line using the color sensors and a given intensity.
+
+'''
 
 def line_follow(robot, intensity, speed, n, space):
     t = 0.4
@@ -107,6 +119,13 @@ def line_follow(robot, intensity, speed, n, space):
         if n == 9:
             return n
 
+
+''' 
+
+go_to_space moves the robot to the given space.
+
+'''
+
 def go_to_space(robot,space):
     n=0
     while True:
@@ -124,6 +143,14 @@ def go_to_space(robot,space):
         if n == 9:
             robot.drive_system.stop()
             break
+
+
+'''
+
+go_to_space5 is the special case for the center space on the grid. It moves to robot to the center space.
+
+'''
+
 
 def go_to_space_5(robot,space):
     n=0
@@ -151,6 +178,13 @@ def go_get_with_camera(robot, left_or_right, speed, start_time, rate):
         robot.drive_system.spin_clockwise_until_sees_object(speed, area)
     ledProx(robot, speed, start_time, rate)
 
+
+'''
+
+the button_X_functions are to call the correct go_to_space function for each button.
+
+'''
+
 def button_1_function(robot):
     go_to_space(robot,4)
 
@@ -177,6 +211,13 @@ def button_8_function(robot):
 
 def button_9_function(robot):
     go_to_space(robot,8)
+
+
+'''
+
+the X_turn functions are for the robot to pick up the correct block needed for each move.
+
+'''
 
 def x_turn(robot):
     turn_90(robot,1,50)

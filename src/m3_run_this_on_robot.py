@@ -91,8 +91,8 @@ def run_test_speak_maker():
     robot=rosebot.SpeechMaker()
     robot.speak("don't make me sing")
 
-def test_line():
-    line_follow(70,50)
+# def test_line():
+    # line_follow(70,50)
 
 def test_run():
     robot = rosebot.RoseBot()
@@ -114,22 +114,6 @@ def real_thing():
         if delegate.is_time_to_stop:
             break
 
-
-def line_follow( intensity, speed):
-    robot = rosebot.RoseBot()
-    t=.4
-    while True:
-        robot.drive_system.go(int(speed), int(speed))
-        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
-            robot.drive_system.go(-int(speed), int(speed))
-            time.sleep(t)
-            t+=.2
-        if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
-            robot.drive_system.go(int(speed), -int(speed))
-            time.sleep(t)
-            t+=.2
-        if int(intensity) >= robot.sensor_system.color_sensor.get_reflected_light_intensity():
-            t=0.4
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
