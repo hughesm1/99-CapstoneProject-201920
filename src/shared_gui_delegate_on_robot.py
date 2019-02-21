@@ -285,13 +285,4 @@ class Handler(object):
 
 
 
-    # def line_follow(self, intensity, speed):
-    #     while True:
-    #         self.robot.drive_system.go(int(speed), int(speed))
-    #         if int(intensity) >= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
-    #             self.robot.drive_system.go(-int(speed), int(speed))
-    #         if int(intensity) >= self.robot.sensor_system.color_sensor.get_reflected_light_intensity():
-    #             self.robot.drive_system.go(int(speed, -int(speed)))
-
-
 

@@ -124,7 +124,7 @@ class Delegate(object):
         print("its over in this many seconds")
 
     def num_of_rocks(self):
-        print("the number of rocks you collected is")
+        print("the number of pieces of trash you collected is")
 
 
 def handle_moon_rocks(mqtt_sender, initial_speed, how_many_rocks):
