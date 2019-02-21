@@ -85,6 +85,7 @@ def turn_90(robot, right_left, speed):
 def line_follow(robot, intensity, speed, n, space):
     t = 0.4
     while True:
+        print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         robot.drive_system.go(int(speed), int(speed))
         if int(intensity) <= robot.sensor_system.color_sensor.get_reflected_light_intensity():
             robot.drive_system.go(-int(speed), int(speed))
@@ -109,7 +110,25 @@ def line_follow(robot, intensity, speed, n, space):
 def go_to_space(robot,space):
     n=0
     while True:
-        n = line_follow(robot, 70, 50, n, space)
+        n = line_follow(robot, 45, 50, n, space)
+        if n == space:
+            robot.drive_system.stop()
+            turn_90(robot,0,50)
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,.3,50)
+            robot.arm_and_claw.lower_arm()
+            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system, .3, -50)
+            turn_90(robot,1,50)
+            break
+    while True:
+        n = line_follow(robot, 45, 50, n, space)
+        if n == 9:
+            robot.drive_system.stop()
+            break
+
+def go_to_space_5(robot,space):
+    n=0
+    while True:
+        n = line_follow(robot, 45, 50, n, space)
         if n == space:
             robot.drive_system.stop()
             turn_90(robot,0,50)
@@ -119,25 +138,7 @@ def go_to_space(robot,space):
             turn_90(robot,1,50)
             break
     while True:
-        n = line_follow(robot, 70, 50, n, space)
-        if n == 9:
-            robot.drive_system.stop()
-            break
-
-def go_to_space_5(robot,space):
-    n=0
-    while True:
-        n = line_follow(robot, 70, 50, n, space)
-        if n == space:
-            robot.drive_system.stop()
-            turn_90(robot,0,50)
-            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system,3,50)
-            robot.arm_and_claw.lower_arm()
-            rosebot.DriveSystem.go_straight_for_seconds(robot.drive_system, 3, -50)
-            turn_90(robot,1,50)
-            break
-    while True:
-        n = line_follow(robot, 70, 50, n, space)
+        n = line_follow(robot, 45, 50, n, space)
         if n == 9:
             robot.drive_system.stop()
             break
@@ -169,10 +170,10 @@ def button_6_function(robot):
     go_to_space(robot,7)
 
 def button_7_function(robot):
-    go_to_space(robot,1)
+    go_to_space(robot,2)
 
 def button_8_function(robot):
-    go_to_space(robot,2)
+    go_to_space(robot,1)
 
 def button_9_function(robot):
     go_to_space(robot,8)
